@@ -6,11 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "prepare": "husky install",
+    "types:check": "tsc --noEmit",
+    "lint:check": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
-    "type-check": "tsc --noEmit",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
-    "prepare": "husky install"
+    "prettier:check": "prettier 'src/**/*.{js,jsx,ts,tsx}'",
+    "prettier:fix": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
+    "format:check": "pnpm run lint:check; pnpm run prettier:check",
+    "format:fix": "pnpm run lint:fix; pnpm run prettier:fix"
   },
   "dependencies": {
     "next": "14.0.1",
