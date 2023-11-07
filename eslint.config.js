@@ -35,6 +35,7 @@ const commonRules = {
         ts: 'never',
         tsx: 'never',
         css: 'always',
+        config: 'always',
       },
     },
   ],
