@@ -1,0 +1,4 @@
+POST http://localhost:8445/admin/oauth2/introspect
+Content-Type: application/x-www-form-urlencoded
+
+token=ory_at_RVN5caBDA-Qpcn7312JfCq2ZoXs8kM-DEdn0VCYsEvI.GgYHn8CSpoEuMs4uF3dJYvq80wty6cjrXT14k2GPm64

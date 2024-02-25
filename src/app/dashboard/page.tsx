@@ -10,6 +10,7 @@ export default async function DashboardPage() {
         Welcome {session?.user?.name}! You are logged in as{' '}
         {session?.user?.email}
       </p>
+      <a href="/logout">Logout</a>
     </div>
   );
 }

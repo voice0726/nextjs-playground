@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const redirectTo = searchParams.get('redirect_to') || undefined;
 
-  await signIn('google', {
+  await signIn('ore-no-idp', {
     redirectTo,
     redirect: !!redirectTo,
   });

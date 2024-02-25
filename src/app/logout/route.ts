@@ -1,5 +1,7 @@
-import { signOut } from '@/auth';
+import { auth, signOut } from '@/auth';
 
 export async function GET() {
-  await signOut({ redirectTo: '/' });
+  const session = await auth();
+  // TODO: logout redirect does not seem to work properly
+  await signOut({ redirectTo: session?.logoutURL, redirect: true });
 }
