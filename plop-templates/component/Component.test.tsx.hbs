@@ -1,0 +1,15 @@
+import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { test, expect, beforeEach, afterEach, vi, describe } from 'vitest';
+
+beforeEach(() => {
+  render(<{{pascalCase name}} />);
+});
+
+afterEach(() => {
+  cleanup();
+};
+
+describe('test case', () => {
+  test('should render', () => {});
+});

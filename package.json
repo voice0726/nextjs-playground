@@ -15,7 +15,8 @@
     "prettier:check": "prettier 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier:fix": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "format:check": "pnpm run lint:check; pnpm run prettier:check",
-    "format:fix": "pnpm run lint:fix; pnpm run prettier:fix"
+    "format:fix": "pnpm run lint:fix; pnpm run prettier:fix",
+    "generate": "cross-env NODE_OPTIONS='--import tsx' plop component"
   },
   "dependencies": {
     "axios": "^1.6.7",
@@ -37,6 +38,7 @@
     "@typescript-eslint/parser": "^6.9.1",
     "autoprefixer": "^10.0.1",
     "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.52.0",
     "eslint-config-next": "14.0.1",
     "eslint-config-prettier": "^9.0.0",
@@ -48,9 +50,11 @@
     "husky": "^8.0.0",
     "json-server": "^0.17.4",
     "lint-staged": "^15.0.2",
+    "plop": "^4.0.1",
     "postcss": "^8",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.19.1",
     "typescript": "^5"
   }
 }
