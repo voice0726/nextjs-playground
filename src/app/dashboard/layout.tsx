@@ -1,6 +1,10 @@
 import { ReactNode } from 'react';
 
 import { Metadata } from 'next';
+import { styled } from 'restyle';
+
+import ModalContextProvider from '@/app/_components/modal/context';
+import { Navbar } from '@/app/_components/navbar';
 
 export const metadata: Metadata = {
   title: {
@@ -11,11 +15,30 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-      <div className="w-full flex-none md:w-64">
-        <p>this is nav bar</p>
-      </div>
-      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
-    </div>
+    <Container>
+      <Nav>
+        <Navbar />
+      </Nav>
+      <ModalContextProvider>
+        <Content>{children}</Content>
+      </ModalContextProvider>
+    </Container>
   );
 }
+
+const Container = styled('div', {
+  display: 'flex',
+  height: '100vh',
+  flexDirection: 'row',
+  overflow: 'hidden',
+});
+
+const Nav = styled('div', {
+  width: '10rem',
+  flex: 'none',
+});
+
+const Content = styled('div', {
+  flexGrow: 1,
+  overflowY: 'auto',
+});

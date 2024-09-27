@@ -19,14 +19,19 @@
   },
   "dependencies": {
     "@auth/core": "^0.35.2",
+    "@conform-to/dom": "^1.2.2",
+    "@conform-to/react": "^1.2.2",
+    "@conform-to/zod": "^1.2.2",
     "@headlessui/react": "^2.1.8",
     "@tanstack/react-table": "^8.20.5",
     "axios": "^1.6.7",
+    "date-fns": "^4.1.0",
     "next": "15.0.0-rc.0",
     "next-auth": "5.0.0-beta.13",
     "react": "19.0.0-rc-67fee58b-20240926",
     "react-dom": "19.0.0-rc-67fee58b-20240926",
     "restyle": "^2.4.0",
+    "typescript-case-convert": "^1.3.5",
     "zod": "^3.22.4"
   },
   "devDependencies": {

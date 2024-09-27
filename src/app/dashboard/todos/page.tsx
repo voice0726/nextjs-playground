@@ -1,16 +1,36 @@
-import { listTodos } from '@/feats/todos/data';
+import { objectToCamel } from 'typescript-case-convert';
+
+import { TodoTable } from '@/app/dashboard/todos/_components/todo-table';
+import { TodoProvider } from '@/app/dashboard/todos/_context';
+import { Todo } from '@/app/dashboard/todos/_schema';
+import { auth } from '@/auth';
+import { API_HOST } from '@/config';
+
+export const dynamic = 'force-dynamic';
 
 export default async function TodoPage() {
-  const todos = await listTodos();
+  const session = await auth();
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      },
+    };
+  }
+  const todos = await fetch(`${API_HOST}/todos`, {
+    headers: { Authorization: `Bearer ${session.accessToken}`, ContentType: 'application/json' },
+    next: { tags: ['todos'] },
+  })
+    .then((res) => res.json() as Promise<Todo[]>)
+    .then((res) => res.map((i) => objectToCamel(i)));
 
   return (
-    <div>
-      <h1>Todo page</h1>
-      {todos.map((todo) => (
-        <p key={todo.id}>
-          {todo.id} {todo.title} {todo.description} {todo.status}
-        </p>
-      ))}
-    </div>
+    <TodoProvider>
+      <div>
+        <h1>Todo page</h1>
+        <TodoTable todos={todos} />
+      </div>
+    </TodoProvider>
   );
 }

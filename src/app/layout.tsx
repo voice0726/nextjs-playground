@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
-import { ReactNode } from 'react';
 import { GlobalStyles } from 'restyle';
 
 import globalStyles from '@/app/_styles/global.css';
