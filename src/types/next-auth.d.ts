@@ -1,25 +1,18 @@
 import 'next-auth';
-import type { DefaultSession } from 'next-auth';
+import { AdapterUser } from '@auth/core/adapters';
 
 declare module 'next-auth' {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
-    /** User details obtained from API. */
-    userDetails: User & DefaultSession['user'];
-    /** Logout URL obtained from Hydra. */
-    logoutURL: string;
-    /** AccessToken obtained from Hydra. */
+    userDetails: User;
+    clientId: string;
+    error?: string;
+    logoutUrl?: string;
     accessToken: string;
-
-  }
-
-  interface Profile {
-    sub: string;
-    traits: {
-      email: string;
-    };
+    refreshToken?: string;
+    expiresAt: number;
   }
 
   /**
@@ -27,36 +20,33 @@ declare module 'next-auth' {
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
-    id: string;
-    email: string;
-  }
-
-  interface JWT {
-    /** User details obtained from API. */
-    userDetails: User & DefaultSession['user'];
-    /** Logout URL obtained from Hydra. */
-    logoutURL: string;
-    /** AccessToken obtained from Hydra. */
-    accessToken: string;
+    loginName: string;
   }
 }
 
 declare module 'next-auth/jwt' {
+  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
   interface JWT {
-    /** User details obtained from API. */
-    userDetails: User & DefaultSession['user'];
-    /** Logout URL obtained from Hydra. */
-    logoutURL: string;
-    /** AccessToken obtained from Hydra. */
+    /** OpenID ID Token */
+    idToken?: string;
+    userDetails: User | AdapterUser;
+    error?: string;
+    logoutUrl?: string;
     accessToken: string;
+    refreshToken?: string;
+    expiresAt: number;
   }
 
-  /**
-   * The shape of the user object returned in the OAuth providers' `profile` callback,
-   * or the second parameter of the `session` callback, when using a database.
-   */
   interface User {
-    id: string;
-    email: string;
+    loginName: string;
+  }
+
+  interface Session {
+    userDetails: User;
+    clientId: string;
+    accessToken: string;
+    refreshToken?: string;
+    error?: string;
+    logoutUrl?: string;
   }
 }

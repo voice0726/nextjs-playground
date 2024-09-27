@@ -1,102 +1,136 @@
-import { NextResponse } from 'next/server';
-import type { NextAuthConfig, Profile } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
+import { Account, NextAuthConfig, Profile } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
+import ZitadelProvider, { ZitadelProfile } from 'next-auth/providers/zitadel';
 
-import { APP_HOST } from '@/config';
+const provider = ZitadelProvider<ZitadelProfile>({
+  issuer: process.env.ZITADEL_ISSUER,
+  clientId: process.env.ZITADEL_CLIENT_ID || '',
+  clientSecret: 'dummy',
+  wellKnown: process.env.ZITADEL_WELL_KNOWN || '',
+  authorization: {
+    params: {
+      scope: `openid email profile offline_access`,
+    },
+  },
+  token: {
+    params: {
+      endpoint: process.env.ZITADEL_ISSUER + '/oauth/v2/token',
+      scope: `openid email profile offline_access`,
+    },
+  },
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async profile(profile) {
+    return {
+      sub: profile.sub,
+      name: profile.name,
+      firstName: profile.given_name,
+      lastName: profile.family_name,
+      email: profile.email,
+      loginName: profile.preferred_username,
+      image: profile.picture,
+    };
+  },
+});
 
-type HydraTokenRes = {
-  active: boolean,
-  scope: string,
-  client_id: string,
-  sub: string
-  exp: number
-  iat: number,
-  nbf: number,
-  aud: string[],
-  iss: string
-  token_type: string
-  token_use: string
+async function refreshAccessToken(token: JWT): Promise<JWT | null> {
+  const res = await fetch(`${process.env.ZITADEL_ISSUER}/oauth/v2/token`, {
+    body: new URLSearchParams({
+      refresh_token: token.refreshToken ?? '',
+      grant_type: 'refresh_token',
+      client_id: process.env.ZITADEL_CLIENT_ID || '',
+    }).toString(),
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  });
+
+  if (!res.ok) {
+    console.error('Error during refreshAccessToken', res.statusText);
+    token.error = 'RefreshAccessTokenError';
+
+    return token;
+  }
+
+  const json = (await res.json()) as { access_token: string; expires_in: number; refresh_token: string };
+
+  return {
+    ...token,
+    accessToken: json.access_token,
+    expiresAt: (Math.floor(Date.now() / 1000) + Number(json.expires_in)) * 1000,
+    refreshToken: json.refresh_token,
+  };
 }
 
 export const authConfig = {
-  providers: [
-    GoogleProvider({
-      clientId: process.env.AUTH_CLIENT_ID,
-      clientSecret: process.env.AUTH_CLIENT_SECRET,
-    }),
-    {
-      id: 'ore-no-idp',
-      name: 'ore-no-idp',
-      type: 'oidc',
-      clientId: process.env.AUTH_CLIENT_ID ?? '',
-      clientSecret: process.env.AUTH_CLIENT_SECRET ?? '',
-      wellKnown: 'http://localhost:8444/.well-known/openid-configuration',
-      issuer: 'http://localhost:8444/',
-      authorization: {
-        url: 'http://localhost:8444/oauth2/auth',
-        params: { scope: 'openid' },
-      },
-      // eslint-disable-next-line @typescript-eslint/require-await
-      async profile(profile: Profile) {
-        process.env.DEPLOY_ENV !== 'production' && console.log('profile', profile);
-
-        return {
-          id: profile.sub ?? '',
-          email: profile.traits.email,
-        };
-      },
-      token: 'http://localhost:8444/oauth2/token',
-      userinfo: 'http://localhost:8444/userinfo',
-      checks: ['pkce', 'state'],
-    },
-  ],
-  session: { strategy: 'jwt' },
-  debug: true,
+  providers: [provider],
   pages: {
     signIn: '/login',
+    signOut: '/logout',
   },
   callbacks: {
-    authorized: async ({ request, auth }) => {
-      const redirectTo = request.url;
+    async jwt({ token, user, account, trigger, profile }) {
+      if (trigger === 'signIn') {
+        validateAccount(account);
+        validateProfile(profile);
 
-      const redirectUrl = `${APP_HOST}/login?redirect_to=${redirectTo}`;
-      if (!auth?.accessToken) {
-
-        return NextResponse.redirect(redirectUrl);
+        token = {
+          ...token,
+          userDetails: { ...user, id: profile.sub },
+          accessToken: account.access_token,
+          refreshToken: account.refresh_token,
+          expiresAt: account.expires_at * 1000,
+          logoutUrl: `${process.env.ZITADEL_ISSUER}/oidc/v1/end_session?id_token_hint=${account.id_token}&post_logout_redirect_uri=http://localhost:3000/logout`,
+        };
       }
 
-      const body = JSON.stringify({ token: auth.accessToken });
-      console.log(body);
-
-      const resBody = await fetch('http://localhost:8445/admin/oauth2/introspect', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `token=${auth.accessToken}`,
-      }).then((res) => res.json() as Promise<HydraTokenRes>);
-
-
-      if (!resBody || !resBody.active) {
-        return NextResponse.redirect(redirectUrl);
+      // Return previous token if the access token has not expired yet
+      if (Date.now() < token.expiresAt) {
+        return token;
       }
 
-      return true;
+      // Access token has expired, try to update it
+      return await refreshAccessToken(token);
     },
-    jwt: ({ token, user, account }) => {
-      if (account?.providerAccountId) {
-        token.accessToken = account.access_token;
-        token.userDetails = user;
-        token.logoutURL = `${process.env.HYDRA_PUBLIC_ENDPOINT_URL}/oauth2/sessions/logout?id_token_hint=${account.id_token}`;
-      }
-
-      return token;
-    },
-    session: ({ session, token }) => {
-      if (token.accessToken) {
-        session.accessToken = token.accessToken as string;
-        session.logoutURL = token.logoutURL as string;
-      }
-
-      return session;
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async session({
+      session,
+      token: { accessToken, refreshToken, userDetails, expiresAt, error: tokenError, logoutUrl },
+    }) {
+      return {
+        ...session,
+        clientId: process.env.ZITADEL_CLIENT_ID || '',
+        error: tokenError,
+        logoutUrl: logoutUrl,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        expiresAt: expiresAt,
+        userDetails: userDetails,
+      };
     },
   },
 } satisfies NextAuthConfig;
+
+function validateAccount(
+  account: Account | null,
+): asserts account is Account & { access_token: string; expires_at: number; refresh_token: string } {
+  if (!account) {
+    throw new TypeError('No account available');
+  }
+  if (!account.access_token) {
+    throw new TypeError('No access token available');
+  }
+  if (!account.expires_at) {
+    throw new TypeError('No expires at available');
+  }
+  if (!account.refresh_token) {
+    throw new TypeError('No refresh token available');
+  }
+}
+
+function validateProfile(profile: Profile | undefined): asserts profile is Profile & { sub: string } {
+  if (!profile) {
+    throw new TypeError('No profile available');
+  }
+  if (!profile.sub) {
+    throw new TypeError('No sub available');
+  }
+}

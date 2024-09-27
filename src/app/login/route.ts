@@ -7,12 +7,10 @@ import { APP_HOST } from '@/config';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const redirectTo = searchParams.get('redirect_to') || undefined;
-
-  await signIn('ore-no-idp', {
+  const redirectTo = searchParams.get('redirect_to') || `${APP_HOST}/dashboard`;
+  const url = await signIn('zitadel', {
     redirectTo,
-    redirect: !!redirectTo,
   });
 
-  return NextResponse.redirect(redirectTo || `${APP_HOST}/dashboard`);
+  return NextResponse.redirect(url);
 }

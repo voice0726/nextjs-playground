@@ -1,10 +1,12 @@
-import Link from 'next/link';
+import { Button } from '@/app/_components/button';
 
 export default function Home() {
   return (
     <main>
       <h1>Welcome to hoge</h1>
-      <Link href="/login">Login</Link>
+      <Button>
+        <a href="/login">Login</a>
+      </Button>
     </main>
   );
 }

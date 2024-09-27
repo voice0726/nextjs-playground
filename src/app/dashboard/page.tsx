@@ -1,3 +1,4 @@
+import { Button } from '@/app/_components/button';
 import { auth } from '@/auth';
 
 export default async function DashboardPage() {
@@ -7,10 +8,11 @@ export default async function DashboardPage() {
     <div>
       <h1>Dashboard</h1>
       <p>
-        Welcome {session?.user?.name}! You are logged in as{' '}
-        {session?.user?.email}
+        Welcome {session?.userDetails?.name}! You are logged in as {session?.userDetails?.email}
       </p>
-      <a href="/logout">Logout</a>
+      <Button>
+        <a href="/logout">Logout</a>
+      </Button>
     </div>
   );
 }
