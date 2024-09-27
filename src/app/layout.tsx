@@ -2,8 +2,12 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
+import { GlobalStyles } from 'restyle';
 
+import globalStyles from '@/app/_styles/global.css';
 import { auth } from '@/auth';
+
+import '@/app/_styles/reset.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,6 +21,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
 
   return (
     <>
+      <GlobalStyles>{globalStyles}</GlobalStyles>
       <html lang="en">
         <body className={inter.className}>
           <SessionProvider session={session}>{children}</SessionProvider>
