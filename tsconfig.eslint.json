@@ -13,7 +13,7 @@
     "jest.config.base.js",
     "jest.config.js",
     "jest.preset.js",
-    "eslint.config.js",
+    "eslint.config.mjs",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
