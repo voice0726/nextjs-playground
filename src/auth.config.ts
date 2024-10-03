@@ -61,6 +61,7 @@ async function refreshAccessToken(token: JWT): Promise<JWT | null> {
 }
 
 export const authConfig = {
+  basePath: '/api/auth',
   providers: [provider],
   pages: {
     signIn: '/login',
