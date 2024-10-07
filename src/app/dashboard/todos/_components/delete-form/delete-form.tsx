@@ -5,15 +5,15 @@ import { styled } from 'restyle';
 import { Button } from '@/app/_components/button';
 import { useModal } from '@/app/_components/modal/context';
 import { deleteTodo } from '@/app/dashboard/todos/_actions';
-import { useTodo } from '@/app/dashboard/todos/_context';
+import type { Todo } from '@/app/dashboard/todos/_schema';
 
-export const DeleteForm = () => {
+type Props = {
+  todo: Todo | undefined;
+};
+
+export const DeleteForm = ({ todo }: Props) => {
   const [, setModalState] = useModal();
-  const [todo] = useTodo();
-  if (!todo) {
-    throw new Error('Todo is required');
-  }
-  const [lastResult, action, isPending] = useActionState(deleteTodo.bind(null, todo.id), undefined);
+  const [lastResult, action, isPending] = useActionState(deleteTodo.bind(null, todo?.id ?? ''), undefined);
   useEffect(() => {
     if (lastResult?.status === 'success' && !isPending) {
       setModalState({ id: '', isOpen: false });

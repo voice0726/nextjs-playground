@@ -1,15 +1,20 @@
+import type { ReactElement } from 'react';
+
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { test, expect, beforeEach, afterEach, vi, describe } from 'vitest';
-
-beforeEach(() => {
-  render(<{{pascalCase name}} />);
-});
+import { test, expect, afterEach, vi, describe } from 'vitest';
 
 afterEach(() => {
   cleanup();
-};
+});
+
+const setup = (jsx: ReactElement) => ({
+  user: userEvent.setup(),
+  ...render(jsx),
+});
 
 describe('test case', () => {
-  test('should render', () => {});
+  test('should render', () => {
+    const { user } = setup(<{{pascalCase name}} />);
+  });
 });
