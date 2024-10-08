@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import { styled } from '@linaria/react';
 import type { Metadata } from 'next';
 
-import ModalContextProvider from '@/app/_components/modal/context';
 import { Navbar } from '@/app/_components/navbar';
 
 export const metadata: Metadata = {
@@ -19,9 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <Nav>
         <Navbar />
       </Nav>
-      <ModalContextProvider>
-        <Content>{children}</Content>
-      </ModalContextProvider>
+      <Content>{children}</Content>
     </Container>
   );
 }

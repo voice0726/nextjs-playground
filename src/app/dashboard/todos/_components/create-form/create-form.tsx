@@ -24,12 +24,8 @@ type Props =
 
 export const CreateForm = ({ mode, todo }: Props) => {
   const [, setModalState] = useModal();
-  const actionFunc =
-    mode === 'update' && todo ? updateTodo.bind(null, todo.id) : createTodo;
-  const [lastResult, action, isPending] = useActionState(actionFunc, {
-    status: undefined,
-  });
-
+  const actionFunc = mode === 'update' && todo ? updateTodo.bind(null, todo.id) : createTodo;
+  const [lastResult, action, isPending] = useActionState(actionFunc, undefined);
   const [form, fields] = useForm({
     lastResult,
     defaultValue: mode === 'update' ? todo : undefined,
@@ -41,7 +37,7 @@ export const CreateForm = ({ mode, todo }: Props) => {
 
   useEffect(() => {
     if (lastResult?.status === 'success' && !isPending) {
-      setModalState({ id: 'CREATE', isOpen: false });
+      setModalState({ id: '', isOpen: false });
     }
   }, [isPending, lastResult, setModalState]);
 

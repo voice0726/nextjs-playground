@@ -40,7 +40,7 @@ export const TodoTable = ({ todos }: Props) => {
         <Button
           onClick={() => {
             setTodo(props.row.original);
-            setModalState({ id: 'UPDATE', isOpen: true });
+            setModalState({ id: 'update-todo', isOpen: true });
           }}
         >
           Edit
@@ -53,7 +53,7 @@ export const TodoTable = ({ todos }: Props) => {
         <Button
           onClick={() => {
             setTodo(props.row.original);
-            setModalState({ id: 'DELETE', isOpen: true });
+            setModalState({ id: 'delete-todo', isOpen: true });
           }}
         >
           Delete
