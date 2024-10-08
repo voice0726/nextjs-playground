@@ -10,7 +10,7 @@ import { Checkbox } from '@/app/_components/checkbox';
 import { Container, FormGroup, Input, Label } from '@/app/_components/form';
 import { useModal } from '@/app/_components/modal/context';
 import { createTodo, updateTodo } from '@/app/dashboard/todos/_actions';
-import { createTodoSchema, Todo } from '@/app/dashboard/todos/_schema';
+import { type Todo, createTodoSchema } from '@/app/dashboard/todos/_schema';
 
 type Props =
   | {
@@ -24,8 +24,11 @@ type Props =
 
 export const CreateForm = ({ mode, todo }: Props) => {
   const [, setModalState] = useModal();
-  const actionFunc = mode === 'update' && todo ? updateTodo.bind(null, todo.id) : createTodo;
-  const [lastResult, action, isPending] = useActionState(actionFunc, { status: undefined });
+  const actionFunc =
+    mode === 'update' && todo ? updateTodo.bind(null, todo.id) : createTodo;
+  const [lastResult, action, isPending] = useActionState(actionFunc, {
+    status: undefined,
+  });
 
   const [form, fields] = useForm({
     lastResult,

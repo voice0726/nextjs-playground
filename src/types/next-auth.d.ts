@@ -1,5 +1,5 @@
 import 'next-auth';
-import { AdapterUser } from '@auth/core/adapters';
+import type { AdapterUser } from '@auth/core/adapters';
 
 declare module 'next-auth' {
   /**

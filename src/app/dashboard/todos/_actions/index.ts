@@ -8,7 +8,7 @@ import { auth } from '@/auth';
 import { API_HOST } from '@/config';
 import { createData } from '@/lib/api';
 
-export async function createTodo(prev: unknown, formData: FormData) {
+export async function createTodo(_: unknown, formData: FormData) {
   const session = await auth();
   if (!session || !session.userDetails.id) {
     redirect(`${API_HOST}/login`);
@@ -28,7 +28,7 @@ export async function createTodo(prev: unknown, formData: FormData) {
   return await createData(payload);
 }
 
-export async function updateTodo(id: string, prev: unknown, formData: FormData) {
+export async function updateTodo(id: string, _: unknown, formData: FormData) {
   const session = await auth();
   if (!session || !session.userDetails.id) {
     redirect(`${API_HOST}/login`);

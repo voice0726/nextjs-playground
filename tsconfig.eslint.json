@@ -16,6 +16,7 @@
     "eslint.config.mjs",
     "next-env.d.ts",
     "next.config.js",
+    "plopfile.ts",
     "src/**/*.ts",
     "src/**/*.tsx",
     ".next/types/**/*.ts",

@@ -1,7 +1,7 @@
 'use client';
 
-import { CellContext, createColumnHelper } from '@tanstack/react-table';
-import { parseJSON, format } from 'date-fns';
+import { type CellContext, createColumnHelper } from '@tanstack/react-table';
+import { format, parseJSON } from 'date-fns';
 
 import { Button } from '@/app/_components/button';
 import { DataTable } from '@/app/_components/data_table';
@@ -10,7 +10,7 @@ import { useModal } from '@/app/_components/modal/context';
 import { CreateForm } from '@/app/dashboard/todos/_components/create-form';
 import { DeleteForm } from '@/app/dashboard/todos/_components/delete-form/delete-form';
 import { useTodo } from '@/app/dashboard/todos/_context';
-import { Todo } from '@/app/dashboard/todos/_schema';
+import type { Todo } from '@/app/dashboard/todos/_schema';
 
 type Props = {
   todos: Todo[];

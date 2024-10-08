@@ -1,7 +1,7 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
-import { NodePlopAPI } from 'plop';
-const appRoot = `src/app`;
+import type { NodePlopAPI } from 'plop';
+const appRoot = 'src/app';
 const componentDirName = '_components';
 const componentRoot = `${appRoot}/${componentDirName}`;
 
@@ -27,7 +27,7 @@ function dirWalk(dir: string, append = ''): string[] {
   return q;
 }
 
-module.exports = function (plop: NodePlopAPI) {
+module.exports = (plop: NodePlopAPI) => {
   plop.setGenerator('component', {
     description: 'react component',
     prompts: [
@@ -42,13 +42,13 @@ module.exports = function (plop: NodePlopAPI) {
         type: 'list',
         name: 'path',
         message: 'select directory',
-        choices: dirWalk(__dirname + '/src/app').map((v) => `src/app/${v}/${componentDirName}`),
+        choices: dirWalk(`${__dirname}/src/app`).map((v) => `src/app/${v}/${componentDirName}`),
       },
       {
         when: (answers) => answers['component-type'] === 'common',
         type: 'input',
         name: 'path',
-        message: `{path please}`,
+        message: '{path please}',
       },
       {
         type: 'input',
@@ -60,34 +60,33 @@ module.exports = function (plop: NodePlopAPI) {
         name: 'confirm',
         message: (answers) => {
           if (answers['component-type'] === 'feats') {
-            return `path: ${appRoot}/${answers['path']}/${answers['name']}?`;
-          } else {
-            return `path: ${componentRoot}/${answers['path']}/${answers['name']}?`;
+            return `path: ${appRoot}/${answers.path}/${answers.name}?`;
           }
+          return `path: ${componentRoot}/${answers.path}/${answers.name}?`;
         },
       },
     ],
-    actions: function (p) {
-      if (p && p['confirm']) {
+    actions: (p) => {
+      if (p?.confirm) {
         return [
           {
             type: 'add',
-            path: `{{path}}/{{kebabCase name}}/index.tsx`,
+            path: '{{path}}/{{kebabCase name}}/index.tsx',
             templateFile: 'plop-templates/component/index.tsx.hbs',
           },
           {
             type: 'add',
-            path: `{{path}}/{{kebabCase name}}/{{kebabCase name}}.tsx`,
+            path: '{{path}}/{{kebabCase name}}/{{kebabCase name}}.tsx',
             templateFile: 'plop-templates/component/Component.tsx.hbs',
           },
           {
             type: 'add',
-            path: `{{path}}/{{kebabCase name}}/{{kebabCase name}}.stories.tsx`,
+            path: '{{path}}/{{kebabCase name}}/{{kebabCase name}}.stories.tsx',
             templateFile: 'plop-templates/component/Component.stories.tsx.hbs',
           },
           {
             type: 'add',
-            path: `{{path}}/{{kebabCase name}}/{{kebabCase name}}.test.tsx`,
+            path: '{{path}}/{{kebabCase name}}/{{kebabCase name}}.test.tsx',
             templateFile: 'plop-templates/component/Component.test.tsx.hbs',
           },
         ];

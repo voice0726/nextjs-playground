@@ -13,7 +13,10 @@ type Props = {
 
 export const DeleteForm = ({ todo }: Props) => {
   const [, setModalState] = useModal();
-  const [lastResult, action, isPending] = useActionState(deleteTodo.bind(null, todo?.id ?? ''), undefined);
+  const [lastResult, action, isPending] = useActionState(
+    deleteTodo.bind(null, todo?.id ?? ''),
+    undefined,
+  );
   useEffect(() => {
     if (lastResult?.status === 'success' && !isPending) {
       setModalState({ id: '', isOpen: false });
@@ -22,7 +25,10 @@ export const DeleteForm = ({ todo }: Props) => {
 
   return (
     <Container>
-      <Button type="button" onClick={() => setModalState({ id: '', isOpen: false })}>
+      <Button
+        type="button"
+        onClick={() => setModalState({ id: '', isOpen: false })}
+      >
         Cancel
       </Button>
       <form action={action}>

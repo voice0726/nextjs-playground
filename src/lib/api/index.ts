@@ -1,8 +1,8 @@
-import { Intent } from '@conform-to/dom';
+import type { Intent } from '@conform-to/dom';
 import { parseWithZod } from '@conform-to/zod';
 import { revalidatePath } from 'next/cache';
 import { objectToSnake } from 'typescript-case-convert';
-import { Schema } from 'zod';
+import type { Schema } from 'zod';
 
 export async function createData({
   userID,

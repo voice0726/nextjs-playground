@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { styled } from '@linaria/react';
 import type { Metadata } from 'next';

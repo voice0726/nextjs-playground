@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, type Dispatch, type ReactNode, useContext, useState } from 'react';
+import {
+  type Dispatch,
+  type ReactNode,
+  createContext,
+  useContext,
+  useState,
+} from 'react';
 
 import type { Todo } from '@/app/dashboard/todos/_schema';
 
@@ -14,7 +20,11 @@ export const TodoContext = createContext<TodoState>({} as TodoState);
 export const TodoProvider = ({ children }: { children: ReactNode }) => {
   const [todo, setTodo] = useState<Todo>();
 
-  return <TodoContext.Provider value={{ todo, setTodo }}>{children}</TodoContext.Provider>;
+  return (
+    <TodoContext.Provider value={{ todo, setTodo }}>
+      {children}
+    </TodoContext.Provider>
+  );
 };
 
 export const useTodo = () => {
