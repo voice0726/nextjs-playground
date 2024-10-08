@@ -5,10 +5,7 @@ import { format, parseJSON } from 'date-fns';
 
 import { Button } from '@/app/_components/button';
 import { DataTable } from '@/app/_components/data_table';
-import { Modal } from '@/app/_components/modal';
 import { useModal } from '@/app/_components/modal/context';
-import { CreateForm } from '@/app/dashboard/todos/_components/create-form';
-import { DeleteForm } from '@/app/dashboard/todos/_components/delete-form/delete-form';
 import { useTodo } from '@/app/dashboard/todos/_context';
 import type { Todo } from '@/app/dashboard/todos/_schema';
 
@@ -18,7 +15,7 @@ type Props = {
 
 export const TodoTable = ({ todos }: Props) => {
   const columnHelper = createColumnHelper<Todo>();
-  const [todo, setTodo] = useTodo();
+  const [, setTodo] = useTodo();
   const [, setModalState] = useModal();
 
   const columns = [
@@ -65,19 +62,5 @@ export const TodoTable = ({ todos }: Props) => {
     }),
   ];
 
-  return (
-    <>
-      <DataTable<Todo, string> columns={columns} data={todos} />
-      <Button onClick={() => setModalState({ id: 'CREATE', isOpen: true })}>Create</Button>
-      <Modal name={`CREATE`} title={'Create a new todo'}>
-        <CreateForm mode="create" />
-      </Modal>
-      <Modal name={`UPDATE`} title={'Update a todo'}>
-        <CreateForm mode="update" todo={todo} />
-      </Modal>
-      <Modal name={`DELETE`} title={'Are you sure to delete?'}>
-        <DeleteForm todo={todo} />
-      </Modal>
-    </>
-  );
+  return <DataTable<Todo, string> columns={columns} data={todos} />;
 };
