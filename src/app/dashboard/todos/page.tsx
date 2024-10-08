@@ -1,5 +1,7 @@
 import { objectToCamel } from 'typescript-case-convert';
 
+import ModalContextProvider from '@/app/_components/modal/context';
+import { Modals } from '@/app/dashboard/todos/_components/modals';
 import { TodoTable } from '@/app/dashboard/todos/_components/todo-table';
 import { TodoProvider } from '@/app/dashboard/todos/_context';
 import { Todo } from '@/app/dashboard/todos/_schema';
@@ -27,10 +29,13 @@ export default async function TodoPage() {
 
   return (
     <TodoProvider>
-      <div>
-        <h1>Todo page</h1>
-        <TodoTable todos={todos} />
-      </div>
+      <ModalContextProvider>
+        <div>
+          <h1>Todo page</h1>
+          <TodoTable todos={todos} />
+          <Modals />
+        </div>
+      </ModalContextProvider>
     </TodoProvider>
   );
 }
