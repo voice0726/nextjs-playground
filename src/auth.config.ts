@@ -2,20 +2,22 @@ import type { Account, NextAuthConfig, Profile } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
 import ZitadelProvider, { type ZitadelProfile } from 'next-auth/providers/zitadel';
 
+import { APP_HOST, ZITADEL_CLIENT_ID, ZITADEL_ISSUER, ZITADEL_WELL_KNOWN } from '@/config';
+
 const provider = ZitadelProvider<ZitadelProfile>({
-  issuer: process.env.ZITADEL_ISSUER,
-  clientId: process.env.ZITADEL_CLIENT_ID || '',
+  issuer: ZITADEL_ISSUER,
+  clientId: ZITADEL_CLIENT_ID,
   clientSecret: 'dummy',
-  wellKnown: process.env.ZITADEL_WELL_KNOWN || '',
+  wellKnown: ZITADEL_WELL_KNOWN,
   authorization: {
     params: {
-      scope: `openid email profile offline_access`,
+      scope: 'openid email profile offline_access',
     },
   },
   token: {
     params: {
-      endpoint: process.env.ZITADEL_ISSUER + '/oauth/v2/token',
-      scope: `openid email profile offline_access`,
+      endpoint: `${ZITADEL_ISSUER}/oauth/v2/token`,
+      scope: 'openid email profile offline_access',
     },
   },
   // eslint-disable-next-line @typescript-eslint/require-await
@@ -33,11 +35,11 @@ const provider = ZitadelProvider<ZitadelProfile>({
 });
 
 async function refreshAccessToken(token: JWT): Promise<JWT | null> {
-  const res = await fetch(`${process.env.ZITADEL_ISSUER}/oauth/v2/token`, {
+  const res = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
     body: new URLSearchParams({
       refresh_token: token.refreshToken ?? '',
       grant_type: 'refresh_token',
-      client_id: process.env.ZITADEL_CLIENT_ID || '',
+      client_id: ZITADEL_CLIENT_ID,
     }).toString(),
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -50,7 +52,11 @@ async function refreshAccessToken(token: JWT): Promise<JWT | null> {
     return token;
   }
 
-  const json = (await res.json()) as { access_token: string; expires_in: number; refresh_token: string };
+  const json = (await res.json()) as {
+    access_token: string;
+    expires_in: number;
+    refresh_token: string;
+  };
 
   return {
     ...token,
@@ -79,7 +85,7 @@ export const authConfig = {
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
           expiresAt: account.expires_at * 1000,
-          logoutUrl: `${process.env.ZITADEL_ISSUER}/oidc/v1/end_session?id_token_hint=${account.id_token}&post_logout_redirect_uri=http://localhost:3000/logout`,
+          logoutUrl: `${ZITADEL_ISSUER}/oidc/v1/end_session?id_token_hint=${account.id_token}&post_logout_redirect_uri=${APP_HOST}/logout`,
         };
       }
 
@@ -98,7 +104,7 @@ export const authConfig = {
     }) {
       return {
         ...session,
-        clientId: process.env.ZITADEL_CLIENT_ID || '',
+        clientId: ZITADEL_CLIENT_ID,
         error: tokenError,
         logoutUrl: logoutUrl,
         accessToken: accessToken,
@@ -110,9 +116,11 @@ export const authConfig = {
   },
 } satisfies NextAuthConfig;
 
-function validateAccount(
-  account: Account | null,
-): asserts account is Account & { access_token: string; expires_at: number; refresh_token: string } {
+function validateAccount(account: Account | null): asserts account is Account & {
+  access_token: string;
+  expires_at: number;
+  refresh_token: string;
+} {
   if (!account) {
     throw new TypeError('No account available');
   }

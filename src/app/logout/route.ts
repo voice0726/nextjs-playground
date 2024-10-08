@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import type { NextRequest } from 'next/server';
 
 import { auth, signOut } from '@/auth';
+import { ZITADEL_ISSUER } from '@/config';
 
 export async function GET(req: NextRequest) {
   const session = await auth();
@@ -17,7 +18,7 @@ export async function GET(req: NextRequest) {
 
     return await signOut({ redirectTo: '/', redirect: true });
   }
-  const res = await fetch(`${process.env.ZITADEL_ISSUER}/oidc/v1/userinfo`, {
+  const res = await fetch(`${ZITADEL_ISSUER}/oidc/v1/userinfo`, {
     headers: { Authorization: `Bearer ${session?.accessToken}` },
   });
   if (res.status === 401) {
