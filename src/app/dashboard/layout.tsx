@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-import { Metadata } from 'next';
-import { styled } from 'restyle';
+import { styled } from '@linaria/react';
+import type { Metadata } from 'next';
 
 import ModalContextProvider from '@/app/_components/modal/context';
 import { Navbar } from '@/app/_components/navbar';
@@ -26,19 +26,19 @@ export default function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-const Container = styled('div', {
-  display: 'flex',
-  height: '100vh',
-  flexDirection: 'row',
-  overflow: 'hidden',
-});
+const Container = styled.div`
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  overflow: hidden;
+`;
 
-const Nav = styled('div', {
-  width: '10rem',
-  flex: 'none',
-});
+const Nav = styled.div`
+  width: 10rem;
+  flex: none;
+`;
 
-const Content = styled('div', {
-  flexGrow: 1,
-  overflowY: 'auto',
-});
+const Content = styled.div`
+  flex-grow: 1;
+  overflow-y: auto;
+`;

@@ -1,6 +1,6 @@
 import { useActionState, useEffect } from 'react';
 
-import { styled } from 'restyle';
+import { styled } from '@linaria/react';
 
 import { Button } from '@/app/_components/button';
 import { useModal } from '@/app/_components/modal/context';
@@ -32,8 +32,8 @@ export const DeleteForm = ({ todo }: Props) => {
   );
 };
 
-const Container = styled('div', {
-  display: 'flex',
-  flexDirection: 'row',
-  columnGap: '1rem',
-});
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  column-gap: 1rem;
+`;

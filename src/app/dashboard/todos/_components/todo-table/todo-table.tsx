@@ -76,7 +76,7 @@ export const TodoTable = ({ todos }: Props) => {
         <CreateForm mode="update" todo={todo} />
       </Modal>
       <Modal name={`DELETE`} title={'Are you sure to delete?'}>
-        <DeleteForm />
+        <DeleteForm todo={todo} />
       </Modal>
     </>
   );

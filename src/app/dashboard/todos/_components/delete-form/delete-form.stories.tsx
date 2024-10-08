@@ -10,8 +10,5 @@ export default meta;
 type Story = StoryObj<typeof DeleteForm>;
 
 export const Primary: Story = {
-  args: {
-    primary: true,
-    label: 'DeleteForm',
-  },
+  args: {},
 };

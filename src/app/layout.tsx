@@ -3,12 +3,11 @@ import { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
-import { GlobalStyles } from 'restyle';
 
-import globalStyles from '@/app/_styles/global.css';
 import { auth } from '@/auth';
 
-import '@/app/_styles/reset.css';
+import '@/app/_styles/sanitize.css';
+import './_styles/app.linaria.global.ts';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,13 +20,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const session = await auth();
 
   return (
-    <>
-      <GlobalStyles>{globalStyles}</GlobalStyles>
-      <html lang="en">
-        <body className={inter.className}>
-          <SessionProvider session={session}>{children}</SessionProvider>
-        </body>
-      </html>
-    </>
+    <html lang="en">
+      <body className={inter.className}>
+        <SessionProvider session={session}>{children}</SessionProvider>
+      </body>
+    </html>
   );
 }

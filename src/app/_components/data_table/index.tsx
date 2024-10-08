@@ -2,48 +2,48 @@
 
 import { useMemo } from 'react';
 
+import { styled } from '@linaria/react';
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { styled } from 'restyle';
 
 type TableProps<TData, TValue = unknown> = {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 };
 
-const StyledTable = styled('table', {
-  margin: '1rem 0rem',
-  borderColor: 'rgb(209 213 219)',
-  borderCollapse: 'separate',
-  borderSpacing: 0,
-  borderStyle: 'solid',
-  borderWidth: 1,
-  borderRadius: '0.25rem',
-  overflow: 'hidden',
-});
+const StyledTable = styled.table`
+  margin: 1rem 0;
+  border-color: rgb(209 213 219);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+`;
 
-const TR = styled('tr', {
-  '&+tr td': {
-    borderTop: '1px solid rgb(209 213 219)',
-  },
-});
+const Tr = styled.tr`
+  & + tr td {
+    border-top: 1px solid rgb(209 213 219);
+  }
+`;
 
-const TH = styled('th', {
-  padding: '0.5rem 1rem',
-});
+const Th = styled.th`
+  padding: 0.5rem 1rem;
+`;
 
-const TD = styled('td', {
-  padding: '0.5rem 1rem',
-});
+const Td = styled.td`
+  padding: 0.5rem 1rem;
+`;
 
-const TBODY = styled('tbody', {
-  backgroundColor: 'rgb(255 255 255)',
-});
+const TBody = styled.tbody`
+  background-color: rgb(255 255 255);
+`;
 
-const THEAD = styled('thead', {
-  backgroundColor: 'rgb(55 65 81)',
-  color: 'white',
-  fontWeight: 'bold',
-});
+const THead = styled.thead`
+  background-color: rgb(55 65 81);
+  color: white;
+  font-weight: bold;
+`;
 
 export const DataTable = <TData, TValue = unknown>({ columns, data }: TableProps<TData, TValue>) => {
   const table = useReactTable<TData>({
@@ -54,26 +54,26 @@ export const DataTable = <TData, TValue = unknown>({ columns, data }: TableProps
 
   return (
     <StyledTable>
-      <THEAD>
+      <THead>
         {table.getHeaderGroups().map((headerGroup) => (
-          <TR key={headerGroup.id}>
+          <Tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <TH key={header.id} colSpan={header.colSpan} rowSpan={header.rowSpan}>
+              <Th key={header.id} colSpan={header.colSpan} rowSpan={header.rowSpan}>
                 {flexRender(header.column.columnDef.header, header.getContext())}
-              </TH>
+              </Th>
             ))}
-          </TR>
+          </Tr>
         ))}
-      </THEAD>
-      <TBODY>
+      </THead>
+      <TBody>
         {table.getRowModel().rows.map((row) => (
-          <TR key={row.id}>
+          <Tr key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <TD key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TD>
+              <Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
             ))}
-          </TR>
+          </Tr>
         ))}
-      </TBODY>
+      </TBody>
     </StyledTable>
   );
 };

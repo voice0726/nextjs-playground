@@ -1,6 +1,6 @@
-import { URL } from 'url';
+import { URL } from 'node:url';
 
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 import { signIn } from '@/auth';
 import { APP_HOST } from '@/config';

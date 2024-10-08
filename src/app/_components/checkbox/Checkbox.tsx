@@ -1,47 +1,41 @@
-import { Fragment, HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 
-import { css } from 'restyle';
+import { css } from '@linaria/core';
 
 export const Checkbox = (props: HTMLAttributes<HTMLInputElement>) => {
-  const [className, Styles] = css({
-    appearance: 'none',
-    width: '1rem',
-    height: '1rem',
-    color: 'rgb(37 99 235)',
-    backgroundColor: 'rgb(243 244 246)',
-    ':focus-visible': {
-      boxShadow: '0 0 0 3px rgb(37 99 235)',
-    },
-    borderColor: 'rgb(209 213 219)',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: '0.25rem',
-    position: 'relative',
-    ':checked': {
-      borderWidth: '1px',
-      borderStyle: 'solid',
-      borderColor: 'rgb(209 213 219)',
-      backgroundColor: 'rgb(37 99 235)',
-    },
-    ':checked::before': {
-      content: '',
-      display: 'block',
-      position: 'absolute',
-      left: '3px',
-      top: '1px',
-      width: '4px',
-      height: '8px',
-      borderStyle: 'solid',
-      borderColor: 'white',
-      borderWidth: '0 3px 3px 0',
-      transform: 'rotate(45deg)',
-    },
-  });
+  const style = css`
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    color: rgb(37 99 235);
+    background-color: rgb(243 244 246);
+    :focus-visible {
+      box-shadow: 0 0 0 3px rgb(37 99 235);
+    };
+    border-color: rgb(209 213 219);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.25rem;
+    position: relative;
+    :checked {
+      border-width: 1px;
+      border-style: solid;
+      border-color: rgb(209 213 219);
+      background-color: rgb(37 99 235);
+    };
+    :checked::before {
+      content: '';
+      display: block;
+      position: absolute;
+      left: 3px;
+      top: 1px;
+      width: 4px;
+      height: 8px;
+      border-style: solid;
+      border-color: white;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+  `;
 
-  return (
-    <Fragment>
-      <Styles />
-      <input type="checkbox" className={className} {...props} />
-    </Fragment>
-  );
+  return <input className={style} {...props} type={'checkbox'} />;
 };

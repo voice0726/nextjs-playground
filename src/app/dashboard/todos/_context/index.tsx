@@ -1,8 +1,8 @@
 'use client';
 
-import { createContext, Dispatch, ReactNode, useContext, useState } from 'react';
+import { createContext, type Dispatch, type ReactNode, useContext, useState } from 'react';
 
-import { Todo } from '@/app/dashboard/todos/_schema';
+import type { Todo } from '@/app/dashboard/todos/_schema';
 
 export type TodoState = {
   todo: Todo | undefined;
