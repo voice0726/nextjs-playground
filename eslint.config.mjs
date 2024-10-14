@@ -6,12 +6,11 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import importPlugin from 'eslint-plugin-import';
 import jestDomPlugin from 'eslint-plugin-jest-dom';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
-import react from 'eslint-plugin-react';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
-
-const flatCompat = new FlatCompat();
 
 const commonConfigs = {
   settings: { react: { version: 'detect' } },
@@ -69,13 +68,12 @@ const reactConfigs = [
         ...globals.browser,
       },
     },
-  },
-  {
+    plugins: { 'react-hooks': reactHooksPlugin },
     rules: {
+      ...reactHooksPlugin.configs.recommended.rules,
       'react/prop-types': 'off',
     },
   },
-  ...fixupConfigRules(flatCompat.extends('plugin:react-hooks/recommended')),
 ];
 
 const importConfig = {
