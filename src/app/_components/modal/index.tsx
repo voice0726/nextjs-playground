@@ -18,7 +18,8 @@ export const Modal = ({ title, children, name }: ModalProps) => {
   const dialogClassName = css`
     position: relative;
     z-index: 10;
-    :focus {
+
+    &:focus {
       outline: none;
     }
   `;

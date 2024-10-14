@@ -17,12 +17,12 @@ const Nav = styled.nav`
   margin: 0;
 `;
 
-const UL = styled.ul`
+const Ul = styled.ul`
   list-style: none;
   margin: 0;
 `;
 
-const LI = styled.li`
+const Li = styled.li`
   margin: 0;
   width: 100%;
 `;
@@ -30,13 +30,13 @@ const LI = styled.li`
 export const Navbar = () => {
   return (
     <Nav>
-      <UL>
+      <Ul>
         {navItems.map((item) => (
-          <LI key={item.href}>
+          <Li key={item.href}>
             <Link href={item.href}>{item.name}</Link>
-          </LI>
+          </Li>
         ))}
-      </UL>
+      </Ul>
       <a href="/logout">
         <Button>Logout</Button>
       </a>
