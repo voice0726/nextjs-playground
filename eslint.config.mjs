@@ -1,6 +1,4 @@
-/* eslint-disable */
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
-import { FlatCompat } from '@eslint/eslintrc';
+import { fixupPluginRules } from '@eslint/compat';
 import eslint from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
 import vitestPlugin from '@vitest/eslint-plugin';
@@ -33,6 +31,10 @@ const typeScriptConfigs = [
     },
   },
   {
+    files: ['**/*.{js,jsx,mjs,cjs}'],
+    ...tseslint.configs.disableTypeChecked,
+  },
+  {
     files: ['**/*.{ts,tsx}'],
     rules: {
       '@typescript-eslint/no-misused-promises': [
@@ -54,9 +56,9 @@ const typeScriptConfigs = [
 
 const reactConfigs = [
   {
-    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
-    ...react.configs.flat.recommended,
-    ...react.configs.flat['jsx-runtime'],
+    files: ['**/*.{jsx,tsx}'],
+    ...reactPlugin.configs.flat.recommended,
+    ...reactPlugin.configs.flat['jsx-runtime'],
     languageOptions: {
       parserOptions: {
         ecmaFeatures: {
