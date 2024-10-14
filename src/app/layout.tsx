@@ -4,9 +4,9 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { SessionProvider } from 'next-auth/react';
 
-import { auth } from '@/auth';
+import { auth } from '~/auth';
 
-import '@/app/_styles/sanitize.css';
+import '~/app/_styles/sanitize.css';
 import './_styles/app.linaria.global.ts';
 
 const inter = Inter({ subsets: ['latin'] });

@@ -1,7 +1,7 @@
 import { styled } from '@linaria/react';
 import Link from 'next/link';
 
-import { Button } from '@/app/_components/button';
+import { Button } from '~/app/_components/button';
 
 const navItems = [
   {

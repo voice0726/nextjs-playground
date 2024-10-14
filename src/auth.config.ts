@@ -2,7 +2,7 @@ import type { Account, NextAuthConfig, Profile } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
 import ZitadelProvider, { type ZitadelProfile } from 'next-auth/providers/zitadel';
 
-import { APP_HOST, ZITADEL_CLIENT_ID, ZITADEL_ISSUER, ZITADEL_WELL_KNOWN } from '@/config';
+import { APP_HOST, ZITADEL_CLIENT_ID, ZITADEL_ISSUER, ZITADEL_WELL_KNOWN } from '~/config';
 
 const provider = ZitadelProvider<ZitadelProfile>({
   issuer: ZITADEL_ISSUER,

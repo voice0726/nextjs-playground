@@ -4,25 +4,23 @@ import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
-import ModalContextProvider from '@/app/_components/modal/context';
-import { DeleteForm } from '@/app/dashboard/todos/_components/delete-form/delete-form';
+import ModalContextProvider from '~/app/_components/modal/context';
+import { DeleteForm } from '~/app/dashboard/todos/_components/delete-form/delete-form';
 
 const { mockDeleteTodo, mockModal } = vi.hoisted(() => ({
   mockDeleteTodo: vi.fn().mockImplementation((...data) => {
     console.log('action', data);
     return { status: 'success' };
   }),
-  mockModal: vi
-    .fn()
-    .mockReturnValue([{ id: 'delete-todo', isOpen: true }, vi.fn()]),
+  mockModal: vi.fn().mockReturnValue([{ id: 'delete-todo', isOpen: true }, vi.fn()]),
 }));
 
-vi.mock(import('@/app/_components/modal/context'), async (importOriginal) => ({
+vi.mock(import('~/app/_components/modal/context'), async (importOriginal) => ({
   ...(await importOriginal()),
   useModal: vi.fn().mockReturnValue([{}, mockModal]),
 }));
 
-vi.mock(import('@/app/dashboard/todos/_actions'), async (importOriginal) => ({
+vi.mock(import('~/app/dashboard/todos/_actions'), async (importOriginal) => ({
   ...(await importOriginal()),
   deleteTodo: mockDeleteTodo,
 }));
@@ -57,11 +55,7 @@ describe('deleteForm', () => {
     await user.click(screen.getByRole('button', { name: /Delete/i }));
 
     expect(screen.getByText('Delete')).toBeVisible();
-    expect(mockDeleteTodo).toHaveBeenLastCalledWith(
-      '1',
-      undefined,
-      new FormData(),
-    );
+    expect(mockDeleteTodo).toHaveBeenLastCalledWith('1', undefined, new FormData());
     expect(mockModal).toHaveBeenLastCalledWith({ id: '', isOpen: false });
   });
 

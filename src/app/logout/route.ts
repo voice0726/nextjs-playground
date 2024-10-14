@@ -2,8 +2,8 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { NextRequest } from 'next/server';
 
-import { auth, signOut } from '@/auth';
-import { ZITADEL_ISSUER } from '@/config';
+import { auth, signOut } from '~/auth';
+import { ZITADEL_ISSUER } from '~/config';
 
 export async function GET(req: NextRequest) {
   const session = await auth();

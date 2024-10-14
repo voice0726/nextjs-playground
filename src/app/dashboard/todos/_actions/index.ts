@@ -3,10 +3,10 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-import { createTodoSchema, todoSchema } from '@/app/dashboard/todos/_schema';
-import { auth } from '@/auth';
-import { API_HOST } from '@/config';
-import { createData } from '@/lib/api';
+import { createTodoSchema, todoSchema } from '~/app/dashboard/todos/_schema';
+import { auth } from '~/auth';
+import { API_HOST } from '~/config';
+import { createData } from '~/lib/api';
 
 export async function createTodo(_: unknown, formData: FormData) {
   const session = await auth();

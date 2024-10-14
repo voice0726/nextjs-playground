@@ -3,11 +3,11 @@
 import { type CellContext, createColumnHelper } from '@tanstack/react-table';
 import { format, parseJSON } from 'date-fns';
 
-import { Button } from '@/app/_components/button';
-import { DataTable } from '@/app/_components/data_table';
-import { useModal } from '@/app/_components/modal/context';
-import { useTodo } from '@/app/dashboard/todos/_context';
-import type { Todo } from '@/app/dashboard/todos/_schema';
+import { Button } from '~/app/_components/button';
+import { DataTable } from '~/app/_components/data_table';
+import { useModal } from '~/app/_components/modal/context';
+import { useTodo } from '~/app/dashboard/todos/_context';
+import type { Todo } from '~/app/dashboard/todos/_schema';
 
 type Props = {
   todos: Todo[];

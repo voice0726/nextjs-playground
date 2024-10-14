@@ -4,9 +4,9 @@ import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { test, expect, afterEach, describe } from 'vitest';
 
-import ModalContextProvider from '@/app/_components/modal/context';
-import { TodoTable } from '@/app/dashboard/todos/_components/todo-table/todo-table';
-import type { Todo } from '@/app/dashboard/todos/_schema';
+import ModalContextProvider from '~/app/_components/modal/context';
+import { TodoTable } from '~/app/dashboard/todos/_components/todo-table/todo-table';
+import type { Todo } from '~/app/dashboard/todos/_schema';
 
 const testData: Todo[] = [
   {

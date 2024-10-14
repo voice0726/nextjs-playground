@@ -5,12 +5,12 @@ import { useActionState, useEffect } from 'react';
 import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 
-import { Button } from '@/app/_components/button';
-import { Checkbox } from '@/app/_components/checkbox';
-import { Container, FormGroup, Input, Label } from '@/app/_components/form';
-import { useModal } from '@/app/_components/modal/context';
-import { createTodo, updateTodo } from '@/app/dashboard/todos/_actions';
-import { type Todo, createTodoSchema } from '@/app/dashboard/todos/_schema';
+import { Button } from '~/app/_components/button';
+import { Checkbox } from '~/app/_components/checkbox';
+import { Container, FormGroup, Input, Label } from '~/app/_components/form';
+import { useModal } from '~/app/_components/modal/context';
+import { createTodo, updateTodo } from '~/app/dashboard/todos/_actions';
+import { type Todo, createTodoSchema } from '~/app/dashboard/todos/_schema';
 
 type Props =
   | {

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { styled } from '@linaria/react';
 import type { Metadata } from 'next';
 
-import { Navbar } from '@/app/_components/navbar';
+import { Navbar } from '~/app/_components/navbar';
 
 export const metadata: Metadata = {
   title: {

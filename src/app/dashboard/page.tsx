@@ -1,5 +1,5 @@
-import { Button } from '@/app/_components/button';
-import { auth } from '@/auth';
+import { Button } from '~/app/_components/button';
+import { auth } from '~/auth';
 
 export default async function DashboardPage() {
   const session = await auth();

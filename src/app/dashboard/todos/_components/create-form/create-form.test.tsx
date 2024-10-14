@@ -4,8 +4,8 @@ import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, test, vi } from 'vitest';
 
-import ModalContextProvider from '@/app/_components/modal/context';
-import { CreateForm } from '@/app/dashboard/todos/_components/create-form/create-form';
+import ModalContextProvider from '~/app/_components/modal/context';
+import { CreateForm } from '~/app/dashboard/todos/_components/create-form/create-form';
 
 const { mockSetModal, mockAction } = vi.hoisted(() => ({
   mockSetModal: vi.fn(),
@@ -26,13 +26,13 @@ const { mockSetModal, mockAction } = vi.hoisted(() => ({
   }),
 }));
 
-vi.mock(import('@/app/dashboard/todos/_actions'), async (importOriginal) => ({
+vi.mock(import('~/app/dashboard/todos/_actions'), async (importOriginal) => ({
   ...(await importOriginal()),
   createTodo: mockAction,
   updateTodo: mockAction,
 }));
 
-vi.mock(import('@/app/_components/modal/context'), async (importOriginal) => ({
+vi.mock(import('~/app/_components/modal/context'), async (importOriginal) => ({
   ...(await importOriginal()),
   useModal: vi.fn().mockReturnValue([{}, mockSetModal]),
 }));
@@ -60,10 +60,7 @@ describe('createForm', () => {
     await user.type(screen.getByRole('textbox', { name: 'Title' }), 'hoge');
     // i don't know why but user.click doesn't work when it comes after user.type of Description
     await user.click(screen.getByRole('checkbox', { name: 'Completed' }));
-    await user.type(
-      screen.getByRole('textbox', { name: 'Description' }),
-      'fuga',
-    );
+    await user.type(screen.getByRole('textbox', { name: 'Description' }), 'fuga');
 
     await user.click(screen.getByRole('button', { name: /Submit/i }));
 
@@ -83,21 +80,15 @@ describe('createForm', () => {
       </ModalContextProvider>,
     );
 
-    expect(screen.getByRole('textbox', { name: 'Title' })).toHaveTextContent(
-      '',
-    );
-    expect(
-      screen.getByRole('textbox', { name: 'Description' }),
-    ).toHaveTextContent('');
+    expect(screen.getByRole('textbox', { name: 'Title' })).toHaveTextContent('');
+    expect(screen.getByRole('textbox', { name: 'Description' })).toHaveTextContent('');
 
     await user.click(screen.getByRole('button', { name: /Submit/i }));
 
-    expect(
-      screen.getByRole('textbox', { name: 'Title' }).nextSibling,
-    ).toHaveTextContent('title is required');
-    expect(
-      screen.getByRole('textbox', { name: 'Description' }).nextSibling,
-    ).toHaveTextContent('description is required');
+    expect(screen.getByRole('textbox', { name: 'Title' }).nextSibling).toHaveTextContent('title is required');
+    expect(screen.getByRole('textbox', { name: 'Description' }).nextSibling).toHaveTextContent(
+      'description is required',
+    );
 
     expect(mockAction).not.toHaveBeenCalled();
   });

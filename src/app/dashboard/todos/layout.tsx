@@ -1,11 +1,11 @@
 import { objectToCamel } from 'typescript-case-convert';
 
-import ModalContextProvider from '@/app/_components/modal/context';
-import { TodoProvider } from '@/app/dashboard/todos/_context';
-import type { Todo } from '@/app/dashboard/todos/_schema';
-import TodoPage from '@/app/dashboard/todos/page';
-import { auth } from '@/auth';
-import { API_HOST } from '@/config';
+import ModalContextProvider from '~/app/_components/modal/context';
+import { TodoProvider } from '~/app/dashboard/todos/_context';
+import type { Todo } from '~/app/dashboard/todos/_schema';
+import TodoPage from '~/app/dashboard/todos/page';
+import { auth } from '~/auth';
+import { API_HOST } from '~/config';
 
 export const dynamic = 'force-dynamic';
 
