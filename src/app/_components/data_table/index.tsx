@@ -3,12 +3,7 @@
 import { useMemo } from 'react';
 
 import { styled } from '@linaria/react';
-import {
-  type ColumnDef,
-  flexRender,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
+import { type ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
 type TableProps<TData, TValue = unknown> = {
   columns: ColumnDef<TData, TValue>[];
@@ -50,10 +45,7 @@ const THead = styled.thead`
   font-weight: bold;
 `;
 
-export const DataTable = <TData, TValue = unknown>({
-  columns,
-  data,
-}: TableProps<TData, TValue>) => {
+export const DataTable = <TData, TValue = unknown>({ columns, data }: TableProps<TData, TValue>) => {
   const table = useReactTable<TData>({
     columns: useMemo(() => columns, [columns]),
     data: useMemo(() => data, [data]),
@@ -66,15 +58,8 @@ export const DataTable = <TData, TValue = unknown>({
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <Th
-                key={header.id}
-                colSpan={header.colSpan}
-                rowSpan={header.rowSpan}
-              >
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext(),
-                )}
+              <Th key={header.id} colSpan={header.colSpan} rowSpan={header.rowSpan}>
+                {flexRender(header.column.columnDef.header, header.getContext())}
               </Th>
             ))}
           </Tr>
@@ -84,9 +69,7 @@ export const DataTable = <TData, TValue = unknown>({
         {table.getRowModel().rows.map((row) => (
           <Tr key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <Td key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </Td>
+              <Td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</Td>
             ))}
           </Tr>
         ))}

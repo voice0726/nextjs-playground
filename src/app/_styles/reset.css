@@ -189,8 +189,9 @@ input {
  */
 
 button,
-input { /* 1 */
-    overflow: visible;
+input {
+  /* 1 */
+  overflow: visible;
 }
 
 /**

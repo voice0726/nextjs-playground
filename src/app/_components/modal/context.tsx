@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-  createContext,
-  useContext,
-  useState,
-} from 'react';
+import { type Dispatch, type ReactNode, type SetStateAction, createContext, useContext, useState } from 'react';
 
 type Props = {
   children: ReactNode;
