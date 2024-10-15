@@ -90,6 +90,7 @@ const importConfig = {
           tsx: 'never',
           css: 'always',
           config: 'always',
+          client: 'always',
         },
       },
     ],

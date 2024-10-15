@@ -1,37 +1,41 @@
-'use client';
+import { redirect } from 'next/navigation';
+import { objectToCamel } from 'typescript-case-convert';
 
-import { Button } from '~/app/_components/button';
-import { Modal } from '~/app/_components/modal';
-import { useModal } from '~/app/_components/modal/context';
-import { CreateForm } from '~/app/dashboard/todos/_components/create-form';
-import { DeleteForm } from '~/app/dashboard/todos/_components/delete-form';
+import ModalContextProvider from '~/app/_components/modal/context';
 import { TodoTable } from '~/app/dashboard/todos/_components/todo-table';
-import { useTodo } from '~/app/dashboard/todos/_context';
+import { TodoProvider } from '~/app/dashboard/todos/_context';
 import type { Todo } from '~/app/dashboard/todos/_schema';
+import { TodoClientPage } from '~/app/dashboard/todos/page.client';
+import { auth } from '~/auth';
+import { API_HOST } from '~/config';
 
-type Props = {
-  todos: Todo[];
-};
-
-const TodoPage = ({ todos }: Props) => {
-  const [, setModal] = useModal();
-  const [todo] = useTodo();
+const TodoPage = async () => {
+  const session = await auth();
+  if (!session) {
+    redirect('/login?redirect_to=/dashboard/todos');
+  }
+  const todos = await fetch(`${API_HOST}/todos`, {
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+      ContentType: 'application/json',
+    },
+    next: { tags: ['todos'] },
+  })
+    .then((res) => res.json() as Promise<Todo[]>)
+    .then((res) => res.map((i) => objectToCamel(i)))
+    .catch((e) => {
+      console.error('Error fetching todos:', e);
+      return [];
+    });
 
   return (
-    <>
-      <h1>Todo page</h1>
-      <TodoTable todos={todos} />
-      <Button onClick={() => setModal({ id: 'create-todo', isOpen: true })}>Create</Button>
-      <Modal name={'create-todo'} title={'Create a new todo'}>
-        <CreateForm mode="create" />
-      </Modal>
-      <Modal name={'update-todo'} title={'Update a todo'}>
-        <CreateForm mode="update" todo={todo} />
-      </Modal>
-      <Modal name={'delete-todo'} title={'Are you sure to delete?'}>
-        <DeleteForm todo={todo} />
-      </Modal>
-    </>
+    <TodoProvider>
+      <ModalContextProvider>
+        <h1>Todo page</h1>
+        <TodoTable todos={todos} />
+        <TodoClientPage />
+      </ModalContextProvider>
+    </TodoProvider>
   );
 };
 export default TodoPage;
