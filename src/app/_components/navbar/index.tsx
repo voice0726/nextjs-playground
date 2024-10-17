@@ -1,4 +1,5 @@
 import { styled } from '@linaria/react';
+import type { Route } from 'next';
 import Link from 'next/link';
 
 import { Button } from '~/app/_components/button';
@@ -10,7 +11,7 @@ const navItems = [
   },
   { href: '/dashboard/todos', name: 'Todos' },
   { href: '/dashboard/addresses', name: 'Addresses' },
-];
+] satisfies { href: Route; name: string }[];
 
 const Nav = styled.nav`
   width: 100%;
