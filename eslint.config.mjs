@@ -23,6 +23,9 @@ const typeScriptConfigs = [
   ...tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
+      globals: {
+        ...globals.node,
+      },
       parserOptions: {
         project: ['./tsconfig.eslint.json'],
         tsconfigRootDir: import.meta.dirname,
