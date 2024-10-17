@@ -13,7 +13,7 @@
     "jest.preset.js",
     "eslint.config.mjs",
     "next-env.d.ts",
-    "next.config.js",
+    "next.config.ts",
     "plopfile.ts",
     "src/**/*.ts",
     "src/**/*.tsx",

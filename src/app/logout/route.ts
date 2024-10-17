@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       throw new Error('Invalid state');
     }
 
-    cookies().delete('logout_state');
+    (await cookies()).delete('logout_state');
 
     return await signOut({ redirectTo: '/', redirect: true });
   }
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
   }
 
   const rand = crypto.randomUUID().replaceAll('-', '');
-  cookies().set('logout_state', rand);
+  (await cookies()).set('logout_state', rand);
 
   return redirect(`${session.logoutUrl}&state=${rand}`);
 }
