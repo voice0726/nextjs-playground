@@ -15,7 +15,8 @@
     "format:check": "pnpm run lint:check; pnpm run prettier:check",
     "format:fix": "pnpm run lint:fix; pnpm run prettier:fix",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest --coverage.enabled"
   },
   "dependencies": {
     "@auth/core": "^0.35.3",
