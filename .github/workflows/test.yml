@@ -3,6 +3,10 @@ name: vitest
 on:
   push:
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   test:
     name: Run test codes
@@ -32,7 +36,5 @@ jobs:
             ${{ runner.os }}-pnpm-store-setup-pnpm
       - name: Install dependencies
         run: pnpm install
-        shell: bash
       - name: Run Vitest
         run: pnpm run test
-        shell: bash
