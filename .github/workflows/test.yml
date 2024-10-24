@@ -20,9 +20,21 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-setup-pnpm
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-setup-pnpm
       - name: Install dependencies
         run: pnpm install
+        shell: bash
       - name: Run Vitest
         run: pnpx vitest --coverage.enabled true
+        shell: bash
       - name: Show coverage
         uses: davelosert/vitest-coverage-report-action@v2
