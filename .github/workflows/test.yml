@@ -34,7 +34,7 @@ jobs:
         run: pnpm install
         shell: bash
       - name: Run Vitest
-        run: pnpx vitest --coverage.enabled true
+        run: vitest --coverage.enabled true
         shell: bash
       - name: Show coverage
         uses: davelosert/vitest-coverage-report-action@v2
