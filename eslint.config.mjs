@@ -1,4 +1,3 @@
-import { fixupPluginRules } from '@eslint/compat';
 import eslint from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
 import vitestPlugin from '@vitest/eslint-plugin';
@@ -8,6 +7,7 @@ import jestDomPlugin from 'eslint-plugin-jest-dom';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import storybookPlugin from 'eslint-plugin-storybook';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -153,7 +153,7 @@ const vitestConfig = {
   },
 };
 const nextConfig = {
-  plugins: { '@next/next': fixupPluginRules(nextPlugin) },
+  plugins: { '@next/next': nextPlugin },
   rules: {
     ...nextPlugin.configs.recommended.rules,
     ...nextPlugin.configs['core-web-vitals'].rules,
@@ -173,6 +173,13 @@ const jsxA11yConfig = {
   },
 };
 
+const storybookConfig = {
+  plugins: { storybook: storybookPlugin },
+  rules: {
+    ...storybookPlugin.configs.recommended.rules,
+  },
+};
+
 export default tseslint.config(
   commonConfigs,
   eslint.configs.recommended,
@@ -184,5 +191,6 @@ export default tseslint.config(
   vitestConfig,
   jestDomPlugin.configs['flat/recommended'],
   unusedImportsConfig,
+  storybookConfig,
   eslintConfigPrettier,
 );
