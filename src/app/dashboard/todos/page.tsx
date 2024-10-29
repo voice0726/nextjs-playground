@@ -9,7 +9,7 @@ import { TodoClientPage } from '~/app/dashboard/todos/page.client';
 import { auth } from '~/auth';
 import { API_HOST } from '~/config';
 
-const TodoPage = async () => {
+export default async function TodoPage() {
   const session = await auth();
   if (!session) {
     redirect('/login?redirect_to=/dashboard/todos');
@@ -37,5 +37,4 @@ const TodoPage = async () => {
       </ModalContextProvider>
     </TodoProvider>
   );
-};
-export default TodoPage;
+}

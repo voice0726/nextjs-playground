@@ -11,17 +11,17 @@ export type TodoState = {
 
 export const TodoContext = createContext<TodoState>({} as TodoState);
 
-export const TodoProvider = ({ children }: { children: ReactNode }) => {
+export function TodoProvider({ children }: { children: ReactNode }) {
   const [todo, setTodo] = useState<Todo>();
 
   return <TodoContext.Provider value={{ todo, setTodo }}>{children}</TodoContext.Provider>;
-};
+}
 
-export const useTodo = () => {
+export function useTodo() {
   const context = useContext(TodoContext);
   if (!context) {
     throw new Error('useTodo must be used within a TodoProvider');
   }
 
   return [context.todo, context.setTodo] as const;
-};
+}

@@ -22,7 +22,7 @@ type Props =
       todo: Todo | undefined;
     };
 
-export const CreateForm = ({ mode, todo }: Props) => {
+export function CreateForm({ mode, todo }: Props) {
   const [, setModalState] = useModal();
   const actionFunc = mode === 'update' && todo ? updateTodo.bind(null, todo.id) : createTodo;
   const [lastResult, action, isPending] = useActionState(actionFunc, undefined);
@@ -71,4 +71,4 @@ export const CreateForm = ({ mode, todo }: Props) => {
       </Container>
     </form>
   );
-};
+}

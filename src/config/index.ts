@@ -1,10 +1,10 @@
-const mustGetEnv = (key: string): string => {
+function mustGetEnv(key: string) {
   const value = process.env[key];
   if (!value || value.length === 0) {
     throw new Error(`Missing environment variable: ${key}`);
   }
   return value;
-};
+}
 
 export const APP_HOST = mustGetEnv('APP_HOST');
 export const API_HOST = mustGetEnv('API_HOST');
