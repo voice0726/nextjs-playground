@@ -46,18 +46,19 @@ export function CreateForm({ mode, todo }: Props) {
       <Container>
         <FormGroup>
           <Label htmlFor={fields.title.id}>Title</Label>
-          <Input {...getInputProps(fields.title, { type: 'text' })} />
+          <Input {...getInputProps(fields.title, { type: 'text' })} key={fields.title.key} />
           {fields.title.errors && <p>{fields.title.errors}</p>}
         </FormGroup>
         <FormGroup>
           <Label htmlFor={fields.description.id}>Description</Label>
-          <Input {...getInputProps(fields.description, { type: 'text' })} />
+          <Input {...getInputProps(fields.description, { type: 'text' })} key={fields.description.key} />
           {fields.description.errors && <p>{fields.description.errors}</p>}
         </FormGroup>
         <FormGroup>
           <Label htmlFor={fields.completed.id}>Completed</Label>
           <Checkbox
             {...getInputProps(fields.completed, { type: 'checkbox' })}
+            key={fields.completed.key}
             aria-checked={fields.completed.value === 'on'}
           />
           {fields.completed.errors && <p>{fields.completed.errors}</p>}
