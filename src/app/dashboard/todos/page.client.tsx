@@ -7,7 +7,7 @@ import { CreateForm } from '~/app/dashboard/todos/_components/create-form';
 import { DeleteForm } from '~/app/dashboard/todos/_components/delete-form';
 import { useTodo } from '~/app/dashboard/todos/_context';
 
-export const TodoClientPage = () => {
+export function TodoClientPage() {
   const [, setModal] = useModal();
   const [todo] = useTodo();
 
@@ -25,4 +25,4 @@ export const TodoClientPage = () => {
       </Modal>
     </>
   );
-};
+}

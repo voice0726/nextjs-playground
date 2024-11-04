@@ -13,7 +13,7 @@ export type ModalProps = {
   name: string;
 };
 
-export const Modal = ({ title, children, name }: ModalProps) => {
+export function Modal({ title, children, name }: ModalProps) {
   const [modalState, setModalState] = useModal();
   const dialogClassName = css`
     position: relative;
@@ -93,4 +93,4 @@ export const Modal = ({ title, children, name }: ModalProps) => {
       </div>
     </Dialog>
   );
-};
+}

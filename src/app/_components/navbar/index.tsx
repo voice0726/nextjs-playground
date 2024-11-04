@@ -28,7 +28,7 @@ const Li = styled.li`
   width: 100%;
 `;
 
-export const Navbar = () => {
+export function Navbar() {
   return (
     <Nav>
       <Ul>
@@ -43,4 +43,4 @@ export const Navbar = () => {
       </a>
     </Nav>
   );
-};
+}

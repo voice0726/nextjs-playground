@@ -13,7 +13,7 @@ type Props = {
   todos: Todo[];
 };
 
-export const TodoTable = ({ todos }: Props) => {
+export function TodoTable({ todos }: Props) {
   const columnHelper = createColumnHelper<Todo>();
   const [, setTodo] = useTodo();
   const [, setModalState] = useModal();
@@ -63,4 +63,4 @@ export const TodoTable = ({ todos }: Props) => {
   ];
 
   return <DataTable<Todo, string> columns={columns} data={todos} />;
-};
+}

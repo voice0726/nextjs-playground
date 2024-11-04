@@ -17,18 +17,19 @@ type ModalContextProviderProps = {
   setModalState: Dispatch<SetStateAction<State>>;
 };
 
+export const ModalContext = createContext<ModalContextProviderProps | undefined>(undefined);
+
 export default function ModalContextProvider({ children }: Props) {
   const [modalState, setModalState] = useState<State>({} as State);
 
   return <ModalContext.Provider value={{ modalState, setModalState }}>{children}</ModalContext.Provider>;
 }
 
-export const ModalContext = createContext<ModalContextProviderProps | undefined>(undefined);
-export const useModal = () => {
+export function useModal() {
   const context = useContext(ModalContext);
   if (!context) {
     throw new Error('useModal must be used within a ModalProvider');
   }
 
   return [context.modalState, context.setModalState] as const;
-};
+}

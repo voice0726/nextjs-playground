@@ -2,7 +2,7 @@ import eslint from '@eslint/js';
 import nextPlugin from '@next/eslint-plugin-next';
 import vitestPlugin from '@vitest/eslint-plugin';
 import eslintConfigPrettier from 'eslint-config-prettier';
-import importPlugin from 'eslint-plugin-import';
+import eslintPluginImportX from 'eslint-plugin-import-x';
 import jestDomPlugin from 'eslint-plugin-jest-dom';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
@@ -79,54 +79,61 @@ const reactConfigs = [
   },
 ];
 
-const importConfig = {
-  plugins: { import: importPlugin },
-  rules: {
-    'import/extensions': [
-      'error',
-      {
-        ignorePackages: true,
-        pattern: {
-          js: 'never',
-          jsx: 'never',
-          ts: 'never',
-          tsx: 'never',
-          css: 'always',
-          config: 'always',
-          client: 'always',
+const importXConfigs = [
+  eslintPluginImportX.flatConfigs.recommended,
+  eslintPluginImportX.flatConfigs.typescript,
+  {
+    name: 'import-x/rules',
+    files: ['**/*.{js,mjs,cjs,jsx,mjsx,ts,tsx,mtsx}'],
+    ignores: ['eslint.config.js'],
+    rules: {
+      'import-x/namespace': 'off',
+      'import-x/extensions': [
+        'error',
+        {
+          ignorePackages: true,
+          pattern: {
+            js: 'never',
+            jsx: 'never',
+            ts: 'never',
+            tsx: 'never',
+            css: 'always',
+            config: 'always',
+            client: 'always',
+          },
         },
-      },
-    ],
-    'import/order': [
-      'error',
-      {
-        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'object', 'index'],
-        pathGroups: [
-          {
-            pattern: '{react,react-dom/**}',
-            group: 'builtin',
-            position: 'before',
+      ],
+      'import-x/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'object', 'index'],
+          pathGroups: [
+            {
+              pattern: '{react,react-dom/**}',
+              group: 'builtin',
+              position: 'before',
+            },
+            {
+              pattern: '{[A-Z]*,**/[A-Z]*}',
+              group: 'internal',
+              position: 'after',
+            },
+            {
+              pattern: './**.module.css',
+              group: 'index',
+              position: 'after',
+            },
+          ],
+          pathGroupsExcludedImportTypes: ['builtin'],
+          alphabetize: {
+            order: 'asc',
           },
-          {
-            pattern: '{[A-Z]*,**/[A-Z]*}',
-            group: 'internal',
-            position: 'after',
-          },
-          {
-            pattern: './**.module.css',
-            group: 'index',
-            position: 'after',
-          },
-        ],
-        pathGroupsExcludedImportTypes: ['builtin'],
-        alphabetize: {
-          order: 'asc',
+          'newlines-between': 'always',
         },
-        'newlines-between': 'always',
-      },
-    ],
+      ],
+    },
   },
-};
+];
 
 const unusedImportsConfig = {
   plugins: { 'unused-imports': unusedImportsPlugin },
@@ -185,7 +192,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...reactConfigs,
   ...typeScriptConfigs,
-  importConfig,
+  ...importXConfigs,
   jsxA11yConfig,
   nextConfig,
   vitestConfig,

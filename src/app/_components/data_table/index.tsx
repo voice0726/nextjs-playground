@@ -45,7 +45,7 @@ const THead = styled.thead`
   font-weight: bold;
 `;
 
-export const DataTable = <TData, TValue = unknown>({ columns, data }: TableProps<TData, TValue>) => {
+export function DataTable<TData, TValue = unknown>({ columns, data }: TableProps<TData, TValue>) {
   const table = useReactTable<TData>({
     columns: useMemo(() => columns, [columns]),
     data: useMemo(() => data, [data]),
@@ -76,4 +76,4 @@ export const DataTable = <TData, TValue = unknown>({ columns, data }: TableProps
       </TBody>
     </StyledTable>
   );
-};
+}

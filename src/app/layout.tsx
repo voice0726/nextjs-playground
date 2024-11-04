@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import '~/app/_styles/sanitize.css';
-import './_styles/app.linaria.global.ts';
+import './_styles/app.linaria.global';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -11,7 +11,7 @@ type Props = {
   todo: Todo | undefined;
 };
 
-export const DeleteForm = ({ todo }: Props) => {
+export function DeleteForm({ todo }: Props) {
   const [, setModalState] = useModal();
   const [lastResult, action, isPending] = useActionState(deleteTodo.bind(null, todo?.id ?? ''), undefined);
   useEffect(() => {
@@ -30,7 +30,7 @@ export const DeleteForm = ({ todo }: Props) => {
       </form>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;
