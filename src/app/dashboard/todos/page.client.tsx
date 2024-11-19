@@ -18,7 +18,7 @@ export function TodoClientPage() {
         <CreateForm mode="create" />
       </Modal>
       <Modal name={'update-todo'} title={'Update a todo'}>
-        <CreateForm mode="update" todo={todo} />
+        {todo && <CreateForm mode="update" todo={todo} />}
       </Modal>
       <Modal name={'delete-todo'} title={'Are you sure to delete?'}>
         <DeleteForm todo={todo} />
