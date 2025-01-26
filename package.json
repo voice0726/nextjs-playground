@@ -34,7 +34,7 @@
     "css-loader": "^7.1.2",
     "date-fns": "^4.1.0",
     "mini-css-extract-plugin": "^2.9.2",
-    "next": "^15.0.2",
+    "next": "^15.1.2",
     "next-auth": "5.0.0-beta.25",
     "next-with-linaria": "^0.7.0",
     "react": "19.0.0-rc-0bc30748-20241028",
