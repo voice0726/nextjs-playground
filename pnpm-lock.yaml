@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  happy-dom@<15.10.2: '>=15.10.2'
+
 importers:
 
   .:
@@ -4034,9 +4037,6 @@ packages:
     engines: {node: '>=0.4.7'}
     hasBin: true
 
-  happy-dom@10.8.0:
-    resolution: {integrity: sha512-ux5UfhNA9ANGf4keV7FCd9GqeQr3Bz1u9qnoPtTL0NcO1MEOeUXIUwNTB9r84Z7Q8/bsgkwi6K114zjYvnCmag==}
-
   happy-dom@15.11.6:
     resolution: {integrity: sha512-elX7iUTu+5+3b2+NGQc0L3eWyq9jKhuJJ4GpOMxxT/c2pg9O3L5H3ty2VECX0XXZgRmmRqXyOK8brA2hDI6LsQ==}
     engines: {node: '>=18.0.0'}
@@ -6139,6 +6139,7 @@ packages:
 
   typescript-case-convert@1.3.5:
     resolution: {integrity: sha512-5swB40rFYzUNc+tSz9JZslKtmfEkiJ+OcVBqVbezR0ifubIGxP8Er3GGM5TeVZEvds7191OnSmoUHdZb+0au+Q==}
+    bundledDependencies: []
 
   typescript-eslint@8.22.0:
     resolution: {integrity: sha512-Y2rj210FW1Wb6TWXzQc5+P+EWI9/zdS57hLEc0gnyuvdzWo8+Y8brKlbj0muejonhMI/xAZCnZZwjbIfv1CkOw==}
@@ -6293,7 +6294,7 @@ packages:
       '@types/node': ^18.0.0 || >=20.0.0
       '@vitest/browser': 2.1.5
       '@vitest/ui': 2.1.5
-      happy-dom: '*'
+      happy-dom: '>=15.10.2'
       jsdom: '*'
     peerDependenciesMeta:
       '@edge-runtime/vm':
@@ -6355,10 +6356,6 @@ packages:
     peerDependenciesMeta:
       webpack-cli:
         optional: true
-
-  whatwg-encoding@2.0.0:
-    resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
-    engines: {node: '>=12'}
 
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
@@ -7907,7 +7904,7 @@ snapshots:
       '@linaria/tags': 5.0.2
       '@linaria/utils': 5.0.2
       cosmiconfig: 8.3.6(typescript@5.7.3)
-      happy-dom: 10.8.0
+      happy-dom: 15.11.6
       source-map: 0.7.4
       stylis: 3.5.4
       ts-invariant: 0.10.3
@@ -10965,15 +10962,6 @@ snapshots:
     optionalDependencies:
       uglify-js: 3.19.3
 
-  happy-dom@10.8.0:
-    dependencies:
-      css.escape: 1.5.1
-      entities: 4.5.0
-      iconv-lite: 0.6.3
-      webidl-conversions: 7.0.0
-      whatwg-encoding: 2.0.0
-      whatwg-mimetype: 3.0.0
-
   happy-dom@15.11.6:
     dependencies:
       entities: 4.5.0
@@ -13451,10 +13439,6 @@ snapshots:
       - '@swc/core'
       - esbuild
       - uglify-js
-
-  whatwg-encoding@2.0.0:
-    dependencies:
-      iconv-lite: 0.6.3
 
   whatwg-encoding@3.1.1:
     dependencies:
