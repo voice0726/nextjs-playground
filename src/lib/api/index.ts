@@ -30,13 +30,14 @@ export async function createData({
 
   const response = await fetch(`${apiURL}`, {
     method: mode === 'create' ? 'POST' : 'PUT',
-    body: JSON.stringify({ ...objectToSnake(submission.value), user_id: userID }),
+    body: JSON.stringify({ ...objectToSnake(submission.value), user_id: userID }), // todo: user_id should be added here or backend?
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,
     },
   });
   if (response.status >= 400) {
+    console.error(response);
     return submission.reply({ formErrors });
   }
 
