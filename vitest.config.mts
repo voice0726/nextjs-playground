@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 import react from '@vitejs/plugin-react';
 import wyw from '@wyw-in-js/vite';
-import dotenv from 'dotenv';
+import { config } from 'dotenv';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vitest/config';
 
@@ -21,7 +21,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    env: dotenv.config({ path: '.env.test' }).parsed,
+    env: config({ path: '.env.test' }).parsed,
     server: {
       deps: {
         inline: ['next-auth'],

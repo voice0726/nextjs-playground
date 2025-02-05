@@ -10,7 +10,7 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks';
 import storybookPlugin from 'eslint-plugin-storybook';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import { configs as tsEslintConfigs, config } from 'typescript-eslint';
 
 const commonConfigs = {
   settings: { react: { version: 'detect' } },
@@ -20,7 +20,7 @@ const commonConfigs = {
 };
 
 const typeScriptConfigs = [
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tsEslintConfigs.recommendedTypeChecked,
   {
     languageOptions: {
       globals: {
@@ -34,7 +34,7 @@ const typeScriptConfigs = [
   },
   {
     files: ['**/*.{js,jsx,mjs,cjs}'],
-    ...tseslint.configs.disableTypeChecked,
+    ...tsEslintConfigs.disableTypeChecked,
   },
   {
     files: ['**/*.{ts,tsx}'],
@@ -187,7 +187,7 @@ const storybookConfig = {
   },
 };
 
-export default tseslint.config(
+export default config(
   commonConfigs,
   eslint.configs.recommended,
   ...reactConfigs,
