@@ -1,5 +1,7 @@
+import { createVanillaExtractPlugin } from '@vanilla-extract/next-plugin';
 import type { NextConfig } from 'next';
-import withLinaria from 'next-with-linaria';
+
+const withVanillaExtract = createVanillaExtractPlugin();
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -7,4 +9,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withLinaria(nextConfig);
+export default withVanillaExtract(nextConfig);

@@ -3,8 +3,7 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import '~/app/_styles/sanitize.css';
-import './_styles/app.linaria.global';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 

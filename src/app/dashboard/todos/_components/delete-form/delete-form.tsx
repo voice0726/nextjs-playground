@@ -1,11 +1,11 @@
 import { useActionState, useEffect } from 'react';
 
-import { styled } from '@linaria/react';
-
 import { Button } from '~/app/_components/button';
 import { useModal } from '~/app/_components/modal/context';
 import { deleteTodo } from '~/app/dashboard/todos/_actions';
 import type { Todo } from '~/app/dashboard/todos/_schema';
+
+import { styled } from '../../../../../../styled-system/jsx';
 
 type Props = {
   todo: Todo | undefined;

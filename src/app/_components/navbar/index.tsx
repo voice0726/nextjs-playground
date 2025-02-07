@@ -1,8 +1,9 @@
-import { styled } from '@linaria/react';
 import type { Route } from 'next';
 import Link from 'next/link';
 
 import { Button } from '~/app/_components/button';
+
+import { styled } from '../../../../styled-system/jsx';
 
 const navItems = [
   {

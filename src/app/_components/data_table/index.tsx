@@ -2,8 +2,9 @@
 
 import { useMemo } from 'react';
 
-import { styled } from '@linaria/react';
 import { type ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+
+import { styled } from '../../../../styled-system/jsx';
 
 type TableProps<TData, TValue = unknown> = {
   columns: ColumnDef<TData, TValue>[];
