@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# nextjs-playground
 
-## Getting Started
+## What is this?
 
-First, run the development server:
+This is my playground where I test or practice TypeScript, Next.js, and related libraries.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- React 19
+- Next.js 15
+- Auth.js
+- eslint 9
+- prettier 3
+- vitest 3
+- react-table
+- zod
+- headlessui
+- linaria
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Backend
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The backend api for this playground can be found [here](https://github.com/voice0726/backend-for-my-nextjs-playground)
 
-## Learn More
+## CD/CI
 
-To learn more about Next.js, take a look at the following resources:
+- tests using github actions
+- renovate
+- qodana (now trying)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## TODO
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- compare form libraries such as react-hook-form
+  - currently forms are implemented with React 19 action functions
+- consider state management and data fetching strategies
+  - currently data fetching relies on server components
+    - fetched data are directly passed to client components
+    - needs comparison with tanstack query or other data fetch strategies
+  - other global states related to UI are managed with react contexts 
+- add new features
+- add tests
+- etc.
+- deploy to vercel or other clouds
