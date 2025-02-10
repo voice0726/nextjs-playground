@@ -26,13 +26,13 @@ export function TodoTable({ todos }: Props) {
       accessorKey: 'createdAt',
       header: 'Created At',
       cell: (props: CellContext<Todo, string>) =>
-        props.row.original.createdAt ? format(parseJSON(props.row.original.createdAt), 'yyyy/MM/dd HH:ii:ss') : '',
+        props.row.original.createdAt ? format(parseJSON(props.row.original.createdAt), 'yyyy/MM/dd HH:mm:ss') : '',
     },
     {
       accessorKey: 'updatedAt',
       header: 'Updated At',
       cell: (props: CellContext<Todo, string>) =>
-        props.row.original.updatedAt ? format(parseJSON(props.row.original.updatedAt), 'yyyy/MM/dd HH:ii:ss') : '',
+        props.row.original.updatedAt ? format(parseJSON(props.row.original.updatedAt), 'yyyy/MM/dd HH:mm:ss') : '',
     },
     columnHelper.display({
       id: 'update',
