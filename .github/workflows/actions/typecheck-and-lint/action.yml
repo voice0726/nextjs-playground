@@ -1,0 +1,9 @@
+runs:
+  using: composite
+  steps:
+    - name: Type check
+      run: pnpm run types:check
+      shell: bash
+    - name: Eslint
+      run: pnpm run lint:check
+      shell: bash
