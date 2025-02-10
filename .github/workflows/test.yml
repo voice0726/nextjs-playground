@@ -19,6 +19,8 @@ jobs:
     name: Run test codes
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
       - name: Prepare
         uses: ./.github/workflows/_prepare.yml
       - name: Run Vitest
