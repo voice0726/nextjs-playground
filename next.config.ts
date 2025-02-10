@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next';
-import withLinaria from 'next-with-linaria';
 
 const nextConfig: NextConfig = {
   experimental: {
@@ -7,4 +6,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withLinaria(nextConfig);
+export default nextConfig;

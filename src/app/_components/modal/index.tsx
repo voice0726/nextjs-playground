@@ -3,9 +3,10 @@
 import type { ReactNode } from 'react';
 
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
-import { css } from '@linaria/core';
 
 import { useModal } from '~/app/_components/modal/context';
+
+import { css } from '../../../../styled-system/css';
 
 export type ModalProps = {
   title: string;
@@ -26,20 +27,20 @@ export function Modal({ title, children, name }: ModalProps) {
   const dialogBackdrop = css`
     position: fixed;
     inset: 0;
-    background-Color: rgba(0, 0, 0, 0.3);
-    transition-Property: opacity;
-    transition-Timing-Function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-Duration: 150ms;
+    background-color: rgba(0, 0, 0, 0.3);
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
     &[data-closed] {
       opacity: 0;
     },
     &[data-enter] {
-      transition-Duration: 300ms;
-      transition-Timing-Function: cubic-bezier(0, 0, 0.2, 1);
+      transition-duration: 300ms;
+      transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     },
     &[data-leave] {
-      transition-Duration: 200ms;
-      transition-Timing-Function: cubic-bezier(0.4, 0, 1, 1);
+      transition-duration: 200ms;
+      transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
     },
   `;
   const modalContainer = css`

@@ -1,8 +1,8 @@
 import type { HTMLAttributes } from 'react';
 
-import { css } from '@linaria/core';
+import { css } from '../../../../styled-system/css';
 
-export const Checkbox = (props: HTMLAttributes<HTMLInputElement>) => {
+export function Checkbox(props: HTMLAttributes<HTMLInputElement>) {
   const style = css`
     appearance: none;
     width: 1rem;
@@ -41,4 +41,4 @@ export const Checkbox = (props: HTMLAttributes<HTMLInputElement>) => {
   const styles = className ? `${style} ${className}` : style;
 
   return <input type={'checkbox'} className={styles} {...rest} />;
-};
+}

@@ -1,9 +1,10 @@
 import type { ReactNode } from 'react';
 
-import { styled } from '@linaria/react';
 import type { Metadata } from 'next';
 
 import { Navbar } from '~/app/_components/navbar';
+
+import { css } from '../../../styled-system/css';
 
 export const metadata: Metadata = {
   title: {
@@ -23,19 +24,31 @@ export default function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-const Container = styled.div`
+const containerClassName = css`
   display: flex;
   height: 100vh;
   flex-direction: row;
   overflow: hidden;
 `;
 
-const Nav = styled.div`
+function Container({ children }: { children: ReactNode }) {
+  return <div className={containerClassName}>{children}</div>;
+}
+
+const navClassName = css`
   width: 10rem;
   flex: none;
 `;
 
-const Content = styled.div`
+function Nav({ children }: { children: ReactNode }) {
+  return <div className={navClassName}>{children}</div>;
+}
+
+const contentClassName = css`
   flex-grow: 1;
   overflow-y: auto;
 `;
+
+function Content({ children }: { children: ReactNode }) {
+  return <div className={contentClassName}>{children}</div>;
+}

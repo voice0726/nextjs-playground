@@ -15,7 +15,7 @@ This is my playground where I test or practice TypeScript, Next.js, and related 
 - react-table
 - zod
 - headlessui
-- linaria
+- panda css
 
 ## Backend
 
