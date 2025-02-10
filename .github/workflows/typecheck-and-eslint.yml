@@ -1,5 +1,4 @@
-name: vitest
-
+name: typecheck-and-eslint.yml
 on:
   push:
 
@@ -15,11 +14,12 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Run test codes
+  typechekck-and-linting:
     runs-on: ubuntu-latest
     steps:
       - name: Prepare
         uses: ./.github/workflows/_prepare.yml
-      - name: Run Vitest
-        run: pnpm run test
+      - name: Type check
+        run: pnpm run types:check
+      - name: Eslint
+        run: pnpm run lint:check
