@@ -1,4 +1,4 @@
-name: typecheck-and-eslint.yml
+name: renovate
 on:
   push:
 
@@ -16,12 +16,11 @@ permissions:
 jobs:
   typechekck-and-linting:
     runs-on: ubuntu-latest
+    if: startsWith(github.ref_name, 'renovate')
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Initialize
         uses: ./.github/workflows/actions/init
-      - name: Type check
-        run: pnpm run types:check
-      - name: Eslint
-        run: pnpm run lint:check
+      - name: Typecheck and lint
+        uses: ./.github/workflows/actions/typecheck-and-lint
