@@ -1,9 +1,6 @@
-name: _prepare.yml
-on:
-  workflow_call:
-
-jobs:
-  deploy:
+runs:
+  using: composite
+  steps:
     name: Prepare
     runs-on: ubuntu-latest
     steps:
