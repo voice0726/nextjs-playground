@@ -47,7 +47,7 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.15.0",
     "@next/eslint-plugin-next": "^15.0.2",
-    "@pandacss/dev": "^0.52.0",
+    "@pandacss/dev": "^0.53.0",
     "@secretlint/secretlint-rule-preset-recommend": "^9.0.0",
     "@storybook/addon-essentials": "^8.4.2",
     "@storybook/addon-interactions": "^8.4.2",
