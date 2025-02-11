@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 jobs:
-  typechekck-and-linting:
+  typecheck-and-linting:
     runs-on: ubuntu-latest
     if: startsWith(github.ref_name, 'renovate')
     steps:
