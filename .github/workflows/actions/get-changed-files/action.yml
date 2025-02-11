@@ -13,3 +13,6 @@ runs:
         files: |
           **/*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}
         files_separator: "\n"
+    - name: Show result
+      run: echo ${{ steps.changed-files.outputs.all-changed-files }}
+      shell: bash
