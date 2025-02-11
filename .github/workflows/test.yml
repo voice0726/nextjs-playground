@@ -40,7 +40,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Check changed files
+        uses: ./.github/workflows/actions/get-changed-files
+        id: check-changed-files
       - name: Initialize
         uses: ./.github/workflows/actions/init
+        if: ${{ steps.check-changed-files.outputs.any-changed }}
       - name: Run Vitest
-        run: pnpm run test
+        uses: ./.github/workflows/actions/test
+        if: ${{ steps.check-changed-files.outputs.any-changed }}

@@ -1,0 +1,24 @@
+outputs:
+  any-changed:
+    description: has files satisfy the specified condition
+    value: ${{ steps.changed-files.outputs.any-changed }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get changed files
+      uses: tj-actions/changed-files@v45.0.7
+      id: changed-files
+      with:
+        files: |
+          **/*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}
+        files_separator: "\n"
+    - name: List all changed files
+      env:
+        ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+      run: |
+        for file in ${ALL_CHANGED_FILES}; do
+          echo "$file was changed"
+        done
+      shell: bash
+
