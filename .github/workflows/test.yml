@@ -28,7 +28,7 @@ jobs:
         id: changed-files
         with:
           files: |
-            **/*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}
+            src/**/*.{js,jsx,ts,tsx}
           files_separator: "\n"
       - name: Output changed files
         run: echo ${{ steps.changed-files.outputs.all_changed_files }}
