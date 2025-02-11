@@ -24,3 +24,7 @@ jobs:
         uses: ./.github/workflows/actions/init
       - name: Typecheck and lint
         uses: ./.github/workflows/actions/typecheck-and-lint
+      - name: Qodana check
+        uses: ./.github/workflows/actions/qodana
+      - name: Test
+        uses: ./.github/workflows/actions/test

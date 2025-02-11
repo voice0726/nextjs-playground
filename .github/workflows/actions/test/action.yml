@@ -1,0 +1,6 @@
+runs:
+  using: composite
+  steps:
+    - name: Run Vitest
+      run: pnpm run test
+      shell: bash

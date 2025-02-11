@@ -1,0 +1,10 @@
+runs:
+  using: composite
+  steps:
+    - name: 'Qodana Scan'
+      uses: JetBrains/qodana-action@v2024.3
+      with:
+        pr-mode: false
+      env:
+        QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
+        QODANA_ENDPOINT: 'https://qodana.cloud'

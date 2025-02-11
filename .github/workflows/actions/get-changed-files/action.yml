@@ -1,0 +1,22 @@
+outputs:
+  any-changed:
+    description: has files satisfy the specified condition
+    value: ${{ steps.any-changed.outputs }}
+
+runs:
+  using: composite
+  description: check if extensions of any changed files are js,jsx,ts,tsx,cjs,mjs,cts,mts
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Get changed files
+      uses: tj-actions/changed-files@v45.0.7
+      id: changed-files
+      with:
+        files: |
+          **/*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}
+        files_separator: "\n"
+    - name: Generate output
+      id: any-changed
+      run: echo "all_changed_files=${{ steps.changed-files.outputs.any-changed }}" >> $GITHUB_OUTPUTS
+      shell: bash
