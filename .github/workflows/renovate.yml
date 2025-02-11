@@ -26,5 +26,8 @@ jobs:
         uses: ./.github/workflows/actions/typecheck-and-lint
       - name: Qodana check
         uses: ./.github/workflows/actions/qodana
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
+          QODANA_ENDPOINT: 'https://qodana.cloud'
       - name: Test
         uses: ./.github/workflows/actions/test
