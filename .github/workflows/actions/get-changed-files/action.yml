@@ -13,6 +13,12 @@ runs:
         files: |
           **/*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}
         files_separator: "\n"
-    - name: Output changed files
-      run: echo ${{ steps.changed-files.outputs.all_changed_files }}
+    - name: List all changed files
+      env:
+        ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+      run: |
+        for file in ${ALL_CHANGED_FILES}; do
+          echo "$file was changed"
+        done
       shell: bash
+
