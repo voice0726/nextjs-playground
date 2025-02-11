@@ -5,7 +5,6 @@ outputs:
 
 runs:
   using: composite
-  description: check if extensions of any changed files are js,jsx,ts,tsx,cjs,mjs,cts,mts
   steps:
     - name: Checkout code
       uses: actions/checkout@v3
