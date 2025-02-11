@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0  # a full history is required for pull request analysis
       - name: Get changed files
         uses: ./.github/workflows/actions/get-changed-files
-        id: any_changed
+        id: check-changed-files
       - name: Run qodana code scanning
         uses: ./.github/workflows/actions/qodana
         if: ${{ steps.check-changed-files.outputs.any-changed }}
