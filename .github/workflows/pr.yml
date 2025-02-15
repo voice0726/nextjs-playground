@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   tsc-lint:
+    name: "Run typechecking and linting"
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -18,6 +19,7 @@ jobs:
       - name: type check and lint
         uses: ./.github/workflows/actions/typecheck-and-lint
   test:
+    name: "Run test"
     needs: tsc-lint
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +28,7 @@ jobs:
       - name: Run test
         uses: ./.github/workflows/actions/test
   code-analysis:
+    name: "Run code analysis by qodana"
     needs: tsc-lint
     runs-on: ubuntu-latest
     steps:
@@ -40,3 +43,18 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
+  output:
+    runs-on: ubuntu-latest
+    name: Show results of checking Pull Request
+    needs: [ test, code-analysis ]
+    steps:
+      - name: Success
+        if: ${{ always() && !contains(join(needs.*.result, ','), 'failure') }}
+        run: |
+          echo "Finished checking PR successfully"
+      - name: Failure
+        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
+        run: |
+          echo "Some checks are not passed"
+          exit 1
+
