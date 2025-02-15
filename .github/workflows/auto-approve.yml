@@ -14,6 +14,13 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: hmarr/auto-approve-action@v4
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        name: Generate app token
         with:
-          github-token: ${{ secrets.BOT_TOKEN }}
+          app-id: ${{ secrets.AUTO_APPROVE_APP_ID }}
+          private-key: ${{ secrets.AUTO_APPROVE_APP_PRIVATE_KEY }}
+      - uses: hmarr/auto-approve-action@v4
+        name: Auto approve PR
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
