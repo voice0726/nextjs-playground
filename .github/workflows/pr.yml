@@ -9,10 +9,25 @@ permissions:
   pull-requests: write
   checks: write
 
+defaults:
+  run:
+    shell: bash
+
+env:
+  skip: ${{ !jobs.check-changed-files.output.any_changed || startsWith('renovate', github.ref_name) }}
+
 jobs:
+  check-changed-files:
+    name: "Check changed files"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check changed files"
+        uses: ./.github/workflows/actions/get-changed-files
   tsc-lint:
     name: "Run typechecking and linting"
     runs-on: ubuntu-latest
+    if: ${{ env.skip }}
+    continue-on-error: true
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -22,6 +37,8 @@ jobs:
     name: "Run test"
     needs: tsc-lint
     runs-on: ubuntu-latest
+    if: ${{ env.skip }}
+    continue-on-error: true
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -31,6 +48,8 @@ jobs:
     name: "Run code analysis by qodana"
     needs: tsc-lint
     runs-on: ubuntu-latest
+    if: ${{ env.skip }}
+    continue-on-error: true
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -48,11 +67,21 @@ jobs:
     name: Show results of checking Pull Request
     needs: [ test, code-analysis ]
     steps:
-      - name: Success
+      - name: Skipped
+        if: ${{ env.skip }}
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo "Skipped checking PR"
+          echo "Changed file list:"
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+      - name: Succeeded
         if: ${{ always() && !contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Finished checking PR successfully"
-      - name: Failure
+      - name: Failed
         if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Some checks are not passed"
