@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: debug
-        run: echo ${{fromJSON(env)}}
+        run: echo ${{toJSON(env)}}
       - name: check skippable
         if: env.skip == 'true'
         run: exit 0
