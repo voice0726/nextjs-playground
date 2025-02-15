@@ -53,4 +53,5 @@ jobs:
         if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Some checks are not passed"
+          exit 1
 
