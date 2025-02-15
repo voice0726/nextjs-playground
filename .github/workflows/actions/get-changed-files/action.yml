@@ -2,6 +2,9 @@ outputs:
   any-changed:
     description: has files satisfy the specified condition
     value: ${{ steps.changed-files.outputs.any-changed }}
+  all_changed_files:
+    description: list of changed files satisfy the specific condition
+    value: ${{ steps.changed-files.output.all_changed_files }}
 
 runs:
   using: composite
@@ -10,10 +13,9 @@ runs:
       uses: tj-actions/changed-files@v45.0.7
       id: changed-files
       with:
-        files: |
-          **/*.{js,jsx,ts,tsx,cjs,mjs,cts,mts}
+        files: src/**/*
         files_separator: "\n"
-    - name: List all changed files
+    - name: Display all changed files on console
       env:
         ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
       run: |

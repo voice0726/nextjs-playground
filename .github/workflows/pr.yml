@@ -9,11 +9,30 @@ permissions:
   pull-requests: write
   checks: write
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
+  check-changed-files:
+    name: "Check changed files"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: "Check changed files"
+        id: check-changed-files
+        uses: ./.github/workflows/actions/get-changed-files
+      - name: Output result to env
+        run: |
+          echo skip=${{ steps.check-changed-files.outputs.any-changed || startsWith('renovate', github.ref_name) }} >> $GITHUB_ENV
   tsc-lint:
     name: "Run typechecking and linting"
     runs-on: ubuntu-latest
     steps:
+      - name: check skippable
+        if: ${{ env.skip }}
+        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: type check and lint
@@ -23,6 +42,9 @@ jobs:
     needs: tsc-lint
     runs-on: ubuntu-latest
     steps:
+      - name: check skippable
+        if: ${{ env.skip }}
+        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: Run test
@@ -32,6 +54,9 @@ jobs:
     needs: tsc-lint
     runs-on: ubuntu-latest
     steps:
+      - name: check skippable
+        if: ${{ env.skip }}
+        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: Get changed files
@@ -48,12 +73,22 @@ jobs:
     name: Show results of checking Pull Request
     needs: [ test, code-analysis ]
     steps:
-      - name: Success
-        if: ${{ always() && !contains(join(needs.*.result, ','), 'failure') }}
+      - name: Skipped
+        if: ${{ always() && env.skip }}
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          echo "Skipped checking PR"
+          echo "Changed file list:"
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+      - name: Succeeded
+        if: ${{ always() && !env.skip && !contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Finished checking PR successfully"
-      - name: Failure
-        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
+      - name: Failed
+        if: ${{ always() && !env.skip && contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Some checks are not passed"
           exit 1
