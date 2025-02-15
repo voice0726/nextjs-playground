@@ -36,37 +36,34 @@ jobs:
     name: "Run typechecking and linting"
     needs: check-changed-files
     runs-on: ubuntu-latest
+    if: needs.check-changed-files.outputs.skip != 'true'
     steps:
       - name: checkout
         uses: actions/checkout@v4
-        if: needs.check-changed-files.outputs.skip != 'true'
       - name: type check and lint
         uses: ./.github/workflows/actions/typecheck-and-lint
-        if: needs.check-changed-files.outputs.skip != 'true'
   test:
     name: "Run test"
     needs: tsc-lint
     runs-on: ubuntu-latest
+    if: needs.check-changed-files.outputs.skip != 'true'
     steps:
       - name: check skippable
-        if: needs.check-changed-files.outputs.skip != 'true'
         run: exit 0
       - name: checkout
         uses: actions/checkout@v4
-        if: needs.check-changed-files.outputs.skip != 'true'
       - name: Run test
         uses: ./.github/workflows/actions/test
-        if: needs.check-changed-files.outputs.skip != 'true'
   code-analysis:
     name: "Run code analysis by qodana"
     needs: tsc-lint
     runs-on: ubuntu-latest
+    if: needs.check-changed-files.output.skip != 'true'
     steps:
       - name: checkout
         uses: actions/checkout@v4
       - name: Run qodana code scanning
         uses: ./.github/workflows/actions/qodana
-        if: needs.check-changed-files.outputs.skip != 'true'
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
