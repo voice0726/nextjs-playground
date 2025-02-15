@@ -1,6 +1,13 @@
+defaults:
+  run:
+    shell: bash
+
 runs:
   using: composite
   steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Initialize
+      uses: ./.github/workflows/actions/init
     - name: Run Vitest
       run: pnpm run test
-      shell: bash

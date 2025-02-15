@@ -3,6 +3,10 @@ outputs:
     description: has files satisfy the specified condition
     value: ${{ steps.changed-files.outputs.any-changed }}
 
+defaults:
+  run:
+    shell: bash
+
 runs:
   using: composite
   steps:
@@ -20,5 +24,3 @@ runs:
         for file in ${ALL_CHANGED_FILES}; do
           echo "$file was changed"
         done
-      shell: bash
-

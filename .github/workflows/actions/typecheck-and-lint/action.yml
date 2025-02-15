@@ -1,9 +1,15 @@
+defaults:
+  run:
+    shell: bash
+
 runs:
   using: composite
   steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Initialize
+      uses: ./.github/workflows/actions/init
     - name: Type check
       run: pnpm run types:check
-      shell: bash
     - name: Eslint
       run: pnpm run lint:check
-      shell: bash

@@ -21,7 +21,7 @@ jobs:
       - name: release-please
         uses: googleapis/release-please-action@v4
         with:
-          token: ${{steps.app-token.outputs.token}}
+          token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
           # optional. customize path to .release-please-manifest.json
           manifest-file: .release-please-manifest.json

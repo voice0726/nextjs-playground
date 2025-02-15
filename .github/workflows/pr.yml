@@ -1,0 +1,52 @@
+name: Check PR
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  checks: write
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  tsc-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: type check and lint
+        uses: ./.github/workflows/actions/typecheck-and-lint
+  test:
+    needs: tsc-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run test
+        uses: ./.github/workflows/actions/test
+  code-analysis:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get changed files
+        uses: ./.github/workflows/actions/get-changed-files
+        id: check-changed-files
+      - name: Run qodana code scanning
+        uses: ./.github/workflows/actions/qodana
+        if: ${{ steps.check-changed-files.outputs.any-changed }}
+        env:
+          QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
+          QODANA_ENDPOINT: 'https://qodana.cloud'
+  conventional-commit:
+    runs-on: ubuntu-latest
+    needs: [ test, code-analysis ]
+    steps:
+      - name: run validation
+        uses: ./.github/workflows/actions/conventional-commit
+  auto-approve:
+    runs-on: ubuntu-latest
+    needs: [ conventional-commit ]
+    steps:
+      - name: execute auto approve
+        uses: ./.github/workflows/actions/auto-approve
