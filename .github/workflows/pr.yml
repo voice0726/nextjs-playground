@@ -25,6 +25,8 @@ jobs:
         uses: ./.github/workflows/actions/get-changed-files
       - name: Output result to env
         run: |
+          echo any_changed=${{ steps.check-changed-files.outputs.any-changed }}
+          echo renovate=${{ startsWith('renovate', github.ref_name) }}
           echo skip=${{ steps.check-changed-files.outputs.any-changed || startsWith('renovate', github.ref_name) }} >> $GITHUB_ENV
   tsc-lint:
     name: "Run typechecking and linting"
