@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.0.2](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.1...nextjs-14-playground/v1.0.2) (2025-02-15)
+
+
+### Reverts
+
+* Revert "ci: add release-please.yml for release please bot ([#85](https://github.com/voice0726/nextjs-playground/issues/85))" ([#86](https://github.com/voice0726/nextjs-playground/issues/86)) ([ce7aacc](https://github.com/voice0726/nextjs-playground/commit/ce7aaccc6771f6fc1f5272e71b192e826e1f7614))
+* Revert "ci: fix trigger of auto-approve and lint-pr ([#81](https://github.com/voice0726/nextjs-playground/issues/81))" ([#83](https://github.com/voice0726/nextjs-playground/issues/83)) ([573b0e4](https://github.com/voice0726/nextjs-playground/commit/573b0e4c2ec3a6482a1361af040069832684a0d5))
+
+
+### Miscellaneous Chores
+
+* **deps:** Update dependency by pnpm update ([#78](https://github.com/voice0726/nextjs-playground/issues/78)) ([353f954](https://github.com/voice0726/nextjs-playground/commit/353f95480238202a8687e80175eaf218cb94840c))
+
+
+### Continuous Integration
+
+* Add echo command to show detailed results of skip condition ([#88](https://github.com/voice0726/nextjs-playground/issues/88)) ([d61d53a](https://github.com/voice0726/nextjs-playground/commit/d61d53adbf1d1998784b33a25aed29a16e68f67c))
+* Add missing checkout steps ([#82](https://github.com/voice0726/nextjs-playground/issues/82)) ([fc27446](https://github.com/voice0726/nextjs-playground/commit/fc27446dc17cbedc1783cb29d370c67e3b3830c8))
+* Add release-please.yml for release please bot ([#85](https://github.com/voice0726/nextjs-playground/issues/85)) ([b85fad8](https://github.com/voice0726/nextjs-playground/commit/b85fad883a8cca21e2a9e3207cae904218cc3176))
+* Conditionally skip check pr ([#84](https://github.com/voice0726/nextjs-playground/issues/84)) ([3f8d3a9](https://github.com/voice0726/nextjs-playground/commit/3f8d3a9099b91c8259da81ab61e2139ede00116e))
+* Fix skip condition ([#89](https://github.com/voice0726/nextjs-playground/issues/89)) ([c98f6b1](https://github.com/voice0726/nextjs-playground/commit/c98f6b1ef21ad2c970cd34f9886f815c9d13d01d))
+* Fix trigger of auto-approve and lint-pr ([#81](https://github.com/voice0726/nextjs-playground/issues/81)) ([39443a7](https://github.com/voice0726/nextjs-playground/commit/39443a7834a2bca6b3570a7b8a63af382a0ccd30))
+* Replace github_token with app token ([#79](https://github.com/voice0726/nextjs-playground/issues/79)) ([3d6b719](https://github.com/voice0726/nextjs-playground/commit/3d6b719a95f35ff70b578c74c2a9bb2a8b22520f))
+* Use app token for release please ([#87](https://github.com/voice0726/nextjs-playground/issues/87)) ([785ee17](https://github.com/voice0726/nextjs-playground/commit/785ee171e21dce5ffbcc33b196734b9598105d43))
+
 ## [1.0.1](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.0...nextjs-14-playground/v1.0.1) (2025-02-15)
 
 
