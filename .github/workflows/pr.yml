@@ -27,9 +27,10 @@ jobs:
   tsc-lint:
     name: "Run typechecking and linting"
     runs-on: ubuntu-latest
-    if: ${{ env.skip }}
-    continue-on-error: true
     steps:
+      - name: check skippable
+        if: ${{ env.skip }}
+        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: type check and lint
@@ -38,9 +39,10 @@ jobs:
     name: "Run test"
     needs: tsc-lint
     runs-on: ubuntu-latest
-    if: ${{ env.skip }}
-    continue-on-error: true
     steps:
+      - name: check skippable
+        if: ${{ env.skip }}
+        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: Run test
@@ -49,9 +51,10 @@ jobs:
     name: "Run code analysis by qodana"
     needs: tsc-lint
     runs-on: ubuntu-latest
-    if: ${{ env.skip }}
-    continue-on-error: true
     steps:
+      - name: check skippable
+        if: ${{ env.skip }}
+        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: Get changed files
@@ -69,7 +72,7 @@ jobs:
     needs: [ test, code-analysis ]
     steps:
       - name: Skipped
-        if: ${{ env.skip }}
+        if: ${{ always() && env.skip }}
         env:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
@@ -79,11 +82,11 @@ jobs:
             echo "$file was changed"
           done
       - name: Succeeded
-        if: ${{ always() && !contains(join(needs.*.result, ','), 'failure') }}
+        if: ${{ always() && !env.skip && !contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Finished checking PR successfully"
       - name: Failed
-        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
+        if: ${{ always() && !env.skip && contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Some checks are not passed"
           exit 1
