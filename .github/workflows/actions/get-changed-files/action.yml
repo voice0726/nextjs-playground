@@ -1,7 +1,7 @@
 outputs:
-  any-changed:
+  any_changed:
     description: has files satisfy the specified condition
-    value: ${{ steps.changed-files.outputs.any-changed }}
+    value: ${{ steps.changed-files.outputs.any_changed }}
   all_changed_files:
     description: list of changed files satisfy the specific condition
     value: ${{ steps.changed-files.output.all_changed_files }}

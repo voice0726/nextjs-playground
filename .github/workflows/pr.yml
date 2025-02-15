@@ -17,6 +17,8 @@ jobs:
   check-changed-files:
     name: "Check changed files"
     runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.output-to-env.outputs.skip }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,17 +26,18 @@ jobs:
         id: check-changed-files
         uses: ./.github/workflows/actions/get-changed-files
       - name: Output result to env
+        id: output-to-env
         run: |
-          echo any_changed=${{ steps.check-changed-files.outputs.any-changed }}
+          echo any_changed=${{ steps.check-changed-files.outputs.any_changed }}
+          echo changed_files=${{ steps.check-changed-files.outputs.all_changed_files }}
           echo renovate=${{ startsWith('renovate', github.ref_name) }}
-          echo skip=${{ steps.check-changed-files.outputs.any-changed || startsWith('renovate', github.ref_name) }} >> $GITHUB_ENV
+          echo "skip=${{ steps.check-changed-files.outputs.any_changed == 'false' || startsWith('renovate', github.ref_name) }}" >> "$GITHUB_OUTPUT"
   tsc-lint:
     name: "Run typechecking and linting"
+    needs: check-changed-files
     runs-on: ubuntu-latest
+    if: needs.check-changed-files.outputs.skip != 'true'
     steps:
-      - name: check skippable
-        if: ${{ env.skip }}
-        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: type check and lint
@@ -43,9 +46,9 @@ jobs:
     name: "Run test"
     needs: tsc-lint
     runs-on: ubuntu-latest
+    if: needs.check-changed-files.outputs.skip != 'true'
     steps:
       - name: check skippable
-        if: ${{ env.skip }}
         run: exit 0
       - name: checkout
         uses: actions/checkout@v4
@@ -55,18 +58,12 @@ jobs:
     name: "Run code analysis by qodana"
     needs: tsc-lint
     runs-on: ubuntu-latest
+    if: needs.check-changed-files.output.skip != 'true'
     steps:
-      - name: check skippable
-        if: ${{ env.skip }}
-        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
-      - name: Get changed files
-        uses: ./.github/workflows/actions/get-changed-files
-        id: check-changed-files
       - name: Run qodana code scanning
         uses: ./.github/workflows/actions/qodana
-        if: ${{ steps.check-changed-files.outputs.any-changed }}
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
@@ -75,22 +72,12 @@ jobs:
     name: Show results of checking Pull Request
     needs: [ test, code-analysis ]
     steps:
-      - name: Skipped
-        if: ${{ always() && env.skip }}
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          echo "Skipped checking PR"
-          echo "Changed file list:"
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
       - name: Succeeded
-        if: ${{ always() && !env.skip && !contains(join(needs.*.result, ','), 'failure') }}
+        if: ${{ always() && needs.check-changed-files.outputs.skip != 'true' && !contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Finished checking PR successfully"
       - name: Failed
-        if: ${{ always() && !env.skip && contains(join(needs.*.result, ','), 'failure') }}
+        if: ${{ always() && needs.check-changed-files.outputs.skip != 'true' && contains(join(needs.*.result, ','), 'failure') }}
         run: |
           echo "Some checks are not passed"
           exit 1
