@@ -16,9 +16,11 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/create-github-app-token@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Generate app token
+        uses: actions/create-github-app-token@v1
         id: app-token
-        name: Generate app token
         with:
           app-id: ${{ secrets.CREATE_APP_TOKEN_APP_ID }}
           private-key: ${{ secrets.CREATE_APP_TOKEN_PRIVATE_KEY }}
