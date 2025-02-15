@@ -25,9 +25,10 @@ jobs:
         uses: ./.github/workflows/actions/get-changed-files
       - name: Output result to env
         run: |
-          echo any_changed=${{ steps.check-changed-files.outputs.any-changed }}
+          echo any_changed=${{ steps.check-changed-files.outputs.any_changed }}
+          echo changed_files=${{ steps.check-changed-files.outputs.all_changed_files }}
           echo renovate=${{ startsWith('renovate', github.ref_name) }}
-          echo skip=${{ steps.check-changed-files.outputs.any-changed || startsWith('renovate', github.ref_name) }} >> $GITHUB_ENV
+          echo skip=${{ steps.check_changed_files.outputs.any_changed || startsWith('renovate', github.ref_name) }} >> $GITHUB_ENV
   tsc-lint:
     name: "Run typechecking and linting"
     runs-on: ubuntu-latest
@@ -66,7 +67,7 @@ jobs:
         id: check-changed-files
       - name: Run qodana code scanning
         uses: ./.github/workflows/actions/qodana
-        if: ${{ steps.check-changed-files.outputs.any-changed }}
+        if: ${{ steps.check-changed-files.outputs.any_changed }}
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
@@ -77,14 +78,8 @@ jobs:
     steps:
       - name: Skipped
         if: ${{ always() && env.skip }}
-        env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
           echo "Skipped checking PR"
-          echo "Changed file list:"
-          for file in ${ALL_CHANGED_FILES}; do
-            echo "$file was changed"
-          done
       - name: Succeeded
         if: ${{ always() && !env.skip && !contains(join(needs.*.result, ','), 'failure') }}
         run: |
