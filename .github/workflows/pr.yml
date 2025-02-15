@@ -13,16 +13,17 @@ defaults:
   run:
     shell: bash
 
-env:
-  skip: ${{ !jobs.check-changed-files.output.any_changed || startsWith('renovate', github.ref_name) }}
-
 jobs:
   check-changed-files:
     name: "Check changed files"
     runs-on: ubuntu-latest
     steps:
       - name: "Check changed files"
+        id: check-changed-files
         uses: ./.github/workflows/actions/get-changed-files
+      - name: Output result to env
+        run: |
+          echo skip=${{ steps.check-changed-files.outputs.any-changed || startsWith('renovate', github.ref_name) }} >> $GITHUB_ENV
   tsc-lint:
     name: "Run typechecking and linting"
     runs-on: ubuntu-latest
