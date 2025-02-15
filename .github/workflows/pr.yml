@@ -28,16 +28,16 @@ jobs:
           echo any_changed=${{ steps.check-changed-files.outputs.any_changed }}
           echo changed_files=${{ steps.check-changed-files.outputs.all_changed_files }}
           echo renovate=${{ startsWith('renovate', github.ref_name) }}
-          echo "skip=${{ steps.check-changed-files.outputs.any_changed == 'false' || startsWith('renovate', github.ref_name) }}" >> "$GITHUB_ENV"
+          echo "skip=${{ steps.check-changed-files.outputs.any_changed == 'false' || startsWith('renovate', github.ref_name) }}" >> "$GITHUB_OUTPUT"
   tsc-lint:
     name: "Run typechecking and linting"
     needs: check-changed-files
     runs-on: ubuntu-latest
     steps:
       - name: debug
-        run: echo ${{toJSON(env)}}
+        run: echo ${{needs.check-changed-files.outputs.skip}}
       - name: check skippable
-        if: env.skip == 'true'
+        if: needs.check-changed-files.outputs.skip
         run: exit 0
       - name: checkout
         uses: actions/checkout@v4
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check skippable
-        if: env.skip == 'true'
+        if: needs.check-changed-files.outputs.skip
         run: exit 0
       - name: checkout
         uses: actions/checkout@v4
@@ -61,7 +61,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check skippable
-        if: env.skip == 'true'
+        if: needs.check-changed-files.outputs.skip
         run: exit 0
       - name: checkout
         uses: actions/checkout@v4
