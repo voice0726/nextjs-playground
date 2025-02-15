@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.1](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.0...nextjs-14-playground/v1.0.1) (2025-02-15)
+
+
+### Continuous Integration
+
+* Fix workflow ([#75](https://github.com/voice0726/nextjs-playground/issues/75)) ([59fad06](https://github.com/voice0726/nextjs-playground/commit/59fad06e6ff00dd79e3bab0086dcde9cfde52d56))
+* Refactor github workflows ([#73](https://github.com/voice0726/nextjs-playground/issues/73)) ([f9979ad](https://github.com/voice0726/nextjs-playground/commit/f9979adbcfda22ad69dbd11ecd1246ed891eb573))
+* Temporally change trigger due to stuck of auto approve action ([#77](https://github.com/voice0726/nextjs-playground/issues/77)) ([522d96c](https://github.com/voice0726/nextjs-playground/commit/522d96c4f0b4150921bbb505662c29edab3e7b81))
+
 ## 1.0.0 (2025-02-15)
 
 
