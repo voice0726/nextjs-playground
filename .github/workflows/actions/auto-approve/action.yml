@@ -1,3 +1,7 @@
+defaults:
+  runs:
+    shell: bash
+
 runs:
   using: composite
   steps:

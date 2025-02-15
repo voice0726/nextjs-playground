@@ -9,10 +9,6 @@ permissions:
   pull-requests: write
   checks: write
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   tsc-lint:
     runs-on: ubuntu-latest
