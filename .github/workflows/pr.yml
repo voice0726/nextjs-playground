@@ -40,3 +40,17 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1290658496 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
+  output:
+    runs-on: ubuntu-latest
+    name: Result of checking Pull Request
+    needs: [ test, code-analysis ]
+    steps:
+      - name: Success
+        if: ${{ always() && !contains(join(needs.*.result, ','), 'failure') }}
+        run: |
+          echo "Finished checking PR successfully"
+      - name: Failure
+        if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
+        run: |
+          echo "Some checks are not passed"
+
