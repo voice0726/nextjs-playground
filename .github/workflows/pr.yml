@@ -17,12 +17,16 @@ jobs:
   tsc-lint:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: type check and lint
         uses: ./.github/workflows/actions/typecheck-and-lint
   test:
     needs: tsc-lint
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
       - name: Run test
         uses: ./.github/workflows/actions/test
   code-analysis:
