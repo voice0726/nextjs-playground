@@ -1,7 +1,3 @@
-defaults:
-  run:
-    shell: bash
-
 runs:
   using: composite
   steps:
@@ -11,5 +7,7 @@ runs:
       uses: ./.github/workflows/actions/init
     - name: Type check
       run: pnpm run types:check
+      shell: bash
     - name: Eslint
       run: pnpm run lint:check
+      shell: bash
