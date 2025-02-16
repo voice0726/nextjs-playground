@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <MockProvider>{children}</MockProvider>
+        {process.env.NODE_ENV !== 'production' ? <MockProvider>{children}</MockProvider> : <>{children}</>}
       </body>
     </html>
   );
