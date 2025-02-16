@@ -6,3 +6,7 @@ profile:
 include:
   - name: CheckDependencyLicenses
   - name: Eslint
+exclude:
+  - name: All
+    paths:
+      - public/mockServiceWorker.js
