@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
 
 import { auth } from '~/auth';
-import { APP_HOST } from '~/config';
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|login|favicon).+)'],
+  matcher: ['/((?!api|_next/static|_next/image|login).+)'],
 };
 
 export default auth((req) => {
   if (!req.auth) {
-    return NextResponse.redirect(`${APP_HOST}/login`);
+    return NextResponse.redirect('http://localhost:3000/login');
   }
 });
