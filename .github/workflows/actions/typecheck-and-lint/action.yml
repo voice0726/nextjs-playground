@@ -1,8 +1,6 @@
 runs:
   using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
     - name: Initialize
       uses: ./.github/workflows/actions/init
     - name: Type check
