@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.3](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.2...nextjs-14-playground/v1.0.3) (2025-02-21)
+
+
+### Bug Fixes
+
+* Exclude favicon from auth required list and fix redirect path ([#93](https://github.com/voice0726/nextjs-playground/issues/93)) ([a91d00d](https://github.com/voice0726/nextjs-playground/commit/a91d00dda35cbe2bc0b254c171ed7286afd44455))
+* **mock:** Make mock run only when dev and test ([#90](https://github.com/voice0726/nextjs-playground/issues/90)) ([bd872ce](https://github.com/voice0726/nextjs-playground/commit/bd872cea989cd7d58707c39efcb5daf564be29f5))
+
+
+### Continuous Integration
+
+* Change release target branch ([#95](https://github.com/voice0726/nextjs-playground/issues/95)) ([ae6911a](https://github.com/voice0726/nextjs-playground/commit/ae6911a19570440cf5ebe740601cabf2323e4bdf))
+* Do not check public/mockServiceWorker ([#91](https://github.com/voice0726/nextjs-playground/issues/91)) ([d32ea3a](https://github.com/voice0726/nextjs-playground/commit/d32ea3a85f31df675b56d946fb5b94bda882a5c9))
+
 ## [1.0.2](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.1...nextjs-14-playground/v1.0.2) (2025-02-15)
 
 
