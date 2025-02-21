@@ -9,7 +9,7 @@ env:
 
 jobs:
   deploy:
-    if: ${{ github.ref_name != 'main' }}
+    if: ${{ github.ref_name != 'main' && !startsWith(github.ref_name, 'release-please' ) }}
     runs-on: ubuntu-latest
     environment:
       name: preview
