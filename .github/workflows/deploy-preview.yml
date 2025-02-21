@@ -1,0 +1,24 @@
+name: Deploy preview
+
+on:
+  push:
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy:
+    if: ${{ github.ref_name != 'main' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy preview
+        id: deploy-preview
+        uses: ./.github/workflows/actions/deploy-preview
+        with:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
