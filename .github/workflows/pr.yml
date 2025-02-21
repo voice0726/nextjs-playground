@@ -48,8 +48,6 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.check-changed-files.outputs.skip != 'true'
     steps:
-      - name: check skippable
-        run: exit 0
       - name: checkout
         uses: actions/checkout@v4
       - name: Run test
