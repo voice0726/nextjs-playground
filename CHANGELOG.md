@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.0.3](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.2...nextjs-14-playground/v1.0.3) (2025-02-22)
+
+
+### Bug Fixes
+
+* **ci:** Fix typo ([#100](https://github.com/voice0726/nextjs-playground/issues/100)) ([fc8a443](https://github.com/voice0726/nextjs-playground/commit/fc8a44313a082a411703c04d4634462ac56a067e))
+* **ci:** Wrong scope name ([#101](https://github.com/voice0726/nextjs-playground/issues/101)) ([8a43a69](https://github.com/voice0726/nextjs-playground/commit/8a43a69abc0245cfcc1196215d6af66eb432fbc7))
+* Exclude favicon from auth required list and fix redirect path ([#93](https://github.com/voice0726/nextjs-playground/issues/93)) ([a91d00d](https://github.com/voice0726/nextjs-playground/commit/a91d00dda35cbe2bc0b254c171ed7286afd44455))
+* Fix vercel scope name ([#97](https://github.com/voice0726/nextjs-playground/issues/97)) ([3656d79](https://github.com/voice0726/nextjs-playground/commit/3656d79f932d0d58b86457423d8b17676b1f8bd9))
+* **mock:** Make mock run only when dev and test ([#90](https://github.com/voice0726/nextjs-playground/issues/90)) ([bd872ce](https://github.com/voice0726/nextjs-playground/commit/bd872cea989cd7d58707c39efcb5daf564be29f5))
+
+
+### Reverts
+
+* "ci: change release target branch ([#95](https://github.com/voice0726/nextjs-playground/issues/95))" ([2c6623b](https://github.com/voice0726/nextjs-playground/commit/2c6623b51681ace98e9d08bd13a039acf808889f))
+
+
+### Continuous Integration
+
+* Change release target branch ([#95](https://github.com/voice0726/nextjs-playground/issues/95)) ([ae6911a](https://github.com/voice0726/nextjs-playground/commit/ae6911a19570440cf5ebe740601cabf2323e4bdf))
+* Do not check public/mockServiceWorker ([#91](https://github.com/voice0726/nextjs-playground/issues/91)) ([d32ea3a](https://github.com/voice0726/nextjs-playground/commit/d32ea3a85f31df675b56d946fb5b94bda882a5c9))
+* Narrow down skip condition for preview ([#117](https://github.com/voice0726/nextjs-playground/issues/117)) ([0cda9fc](https://github.com/voice0726/nextjs-playground/commit/0cda9fc01a8fdff161806c03ff80813df8517e0b))
+* Prevent deploy to staging from being triggered when release created ([#115](https://github.com/voice0726/nextjs-playground/issues/115)) ([ac56e7a](https://github.com/voice0726/nextjs-playground/commit/ac56e7ae7cc4cb15fb2550c9f45c4ce9d4936485))
+* Prevent deploy-preview from being triggered by release-please branch ([#114](https://github.com/voice0726/nextjs-playground/issues/114)) ([0bfd4f1](https://github.com/voice0726/nextjs-playground/commit/0bfd4f17725d0dacc1677c1e0323d2b388067555))
+* Refactor deploy workflows ([#110](https://github.com/voice0726/nextjs-playground/issues/110)) ([6384e9a](https://github.com/voice0726/nextjs-playground/commit/6384e9a7628876cba53f072b8e87e11d3ccfb21a))
+* Skip deploy preview when files in src are not modified ([#116](https://github.com/voice0726/nextjs-playground/issues/116)) ([f11c0e4](https://github.com/voice0726/nextjs-playground/commit/f11c0e4e6ac2ff54d7413e26231dc923c5a42122))
+* Use cache and refactor ([#102](https://github.com/voice0726/nextjs-playground/issues/102)) ([e8f544e](https://github.com/voice0726/nextjs-playground/commit/e8f544ee92dabe51275201035dc575c16f18a1ad))
+* Use github action to deploy vercel ([#94](https://github.com/voice0726/nextjs-playground/issues/94)) ([21e77b1](https://github.com/voice0726/nextjs-playground/commit/21e77b17bb8b296b43e8ddf3d9b95481d65140fe))
+
 ## [1.0.2](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.1...nextjs-14-playground/v1.0.2) (2025-02-15)
 
 
