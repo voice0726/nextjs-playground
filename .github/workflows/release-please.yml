@@ -33,7 +33,7 @@ jobs:
           target-branch: main
 
   deploy-staging:
-    if: ${{ !needs.release-please.outputs.release_created }}
+    if: needs.release-please.outputs.release_created == 'false'
     runs-on: ubuntu-latest
     environment:
       name: preview
@@ -41,17 +41,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Deploy preview
-        id: deploy-preview
+      - name: Deploy staging
+        id: deploy-staging
         uses: ./.github/workflows/actions/deploy-preview
         with:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       - name: Assign staging domain to deployment
-        run: vercel alias ${{ steps.deploy-preview.outputs.url }} staging-voice0726.vercel.app --scope=voice726 --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel alias ${{ steps.deploy-staging.outputs.url }} staging-voice0726.vercel.app --scope=voice726 --token=${{ secrets.VERCEL_TOKEN }}
 
   deploy-production:
     needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }}
+    if: needs.release-please.outputs.release_created == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
