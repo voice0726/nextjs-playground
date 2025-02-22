@@ -33,6 +33,7 @@ jobs:
           target-branch: main
 
   deploy-staging:
+    needs: release-please
     if: needs.release-please.outputs.release_created == 'false'
     runs-on: ubuntu-latest
     environment:
