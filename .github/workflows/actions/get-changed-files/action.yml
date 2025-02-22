@@ -14,8 +14,8 @@ runs:
       id: changed-files
       with:
         files_ignore: | 
-          .github
-          plop-templates
+          .github/**/*
+          plop-templates/**/*
           plopfile.ts
           release-please-config.json
           renovate.json
