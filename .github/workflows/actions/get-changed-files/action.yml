@@ -13,8 +13,13 @@ runs:
       uses: tj-actions/changed-files@v45.0.7
       id: changed-files
       with:
-        files: src/**/*
-        files_separator: "\n"
+        files_ignore: | 
+          .github
+          plop-templates
+          plopfile.ts
+          release-please-config.json
+          renovate.json
+        files_ignore_separator: "\n"
     - name: Display all changed files on console
       env:
         ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
