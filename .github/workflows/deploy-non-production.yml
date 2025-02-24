@@ -12,34 +12,21 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  check-changed-files:
-    name: "Check changed files"
-    runs-on: ubuntu-latest
-    outputs:
-      any_changed: ${{ steps.output-to-env.outputs.any_changed }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: "Check changed files"
-        id: check-changed-files
-        uses: ./.github/workflows/actions/get-changed-files
-      - name: Output result to env
-        id: output-to-env
-        run: |
-          echo any_changed=${{ steps.check-changed-files.outputs.any_changed }} >> "$GITHUB_OUTPUT"
-
   deploy-preview:
     name: Deploy preview
-    needs: check-changed-files
     runs-on: ubuntu-latest
-    if: ${{ needs.check-changed-files.outputs.any_changed == 'true' && github.ref_name != 'main' }}
+    if: ${{ github.ref_name != 'main' }}
     environment:
       name: url
       url: ${{ steps.deploy.outputs.url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Deploy preview
+      - name: Check changed files
+        id: check-changed-files
+        uses: ./.github/workflows/actions/get-changed-files
+      - name: Deploy to vercel
+        if: ${{ steps.check-changed-files.outputs.any_changed == 'true' }}
         id: deploy-preview
         uses: ./.github/workflows/actions/deploy
         with:
@@ -49,6 +36,7 @@ jobs:
           TARGET_ENVIRONMENT: preview
 
   deploy-staging:
+    name: Deploy staging
     runs-on: ubuntu-latest
     environment:
       name: preview
@@ -57,7 +45,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Deploy staging
+      - name: Deploy
         id: deploy-staging
         uses: ./.github/workflows/actions/deploy
         with:
