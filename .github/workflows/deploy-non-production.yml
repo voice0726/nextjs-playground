@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.ref_name != 'main' && !startsWith(github.ref_name, 'release-please') }}
     environment:
-      name: url
+      name: preview
       url: ${{ steps.deploy.outputs.url }}
     steps:
       - name: Checkout
@@ -35,7 +35,7 @@ jobs:
     name: Deploy staging
     runs-on: ubuntu-latest
     environment:
-      name: preview
+      name: staging
       url: ${{ steps.deploy.outputs.url }}
     if: ${{ github.ref_name == 'main' }}
     steps:
