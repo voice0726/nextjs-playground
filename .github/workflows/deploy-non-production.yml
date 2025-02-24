@@ -36,6 +36,7 @@ jobs:
           TARGET_ENVIRONMENT: preview
 
   deploy-staging:
+    name: Deploy staging
     runs-on: ubuntu-latest
     environment:
       name: preview
@@ -44,7 +45,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Deploy staging
+      - name: Deploy
         id: deploy-staging
         uses: ./.github/workflows/actions/deploy
         with:
