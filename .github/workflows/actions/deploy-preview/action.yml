@@ -4,8 +4,17 @@ outputs:
     value: ${{ steps.deploy.outputs.url }}
 
 inputs:
+  VERCEL_ORG_ID:
+    description: vercel organization id
+    required: true
+  VERCEL_PROJECT_ID:
+    description: vercel project id
+    required: true
   VERCEL_TOKEN:
     description: vercel token
+    required: true
+  TARGET_ENVIRONMENT:
+    description: target environment (preview, staging, or production)
     required: true
 
 runs:
@@ -17,12 +26,23 @@ runs:
       run: pnpm install --global vercel@latest
       shell: bash
     - name: Pull Vercel Environment Information
-      run: vercel pull --yes --environment=preview --token=${{ inputs.VERCEL_TOKEN }}
+      run: vercel pull --yes --environment=${{ inputs.TARGET_ENVIRONMENT == 'production' && 'production' || 'preview' }} --token=${{ inputs.VERCEL_TOKEN }}
+      env:
+        VERCEL_ORG_ID: ${{ inputs.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ inputs.VERCEL_PROJECT_ID }}
       shell: bash
     - name: Build Project Artifacts
-      run: vercel build --token=${{ inputs.VERCEL_TOKEN }}
+      run: vercel build ${{ inputs.TARGET_ENVIRONMENT == 'production' && '--prod' }} --token=${{ secrets.VERCEL_TOKEN }}
+      env:
+        VERCEL_ORG_ID: ${{ inputs.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ inputs.VERCEL_PROJECT_ID }}
+        TARGET_ENVIRONMENT: ${{ inputs.TARGET_ENVIRONMENT }}
       shell: bash
     - name: Deploy Project Artifacts to Vercel
       id: deploy
-      run: echo "url=$(vercel deploy --prebuilt --token=${{ inputs.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+      run: echo "url=$(vercel deploy ${{ inputs.TARGET_ENVIRONMENT == 'production' && '--prod' }} --prebuilt --token=${{ inputs.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+      shell: bash
+    - name: Assign staging domain to deployment
+      if: ${{ inputs.TARGET_ENVIRONMENT == 'staging' }}
+      run: vercel alias ${{ steps.deploy-staging.outputs.url }} staging-voice0726.vercel.app --scope=voice726 --token=${{ secrets.VERCEL_TOKEN }}
       shell: bash
