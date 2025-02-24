@@ -1,3 +1,8 @@
+outputs:
+  url:
+    description: URL of deployed preview
+    value: ${{ steps.deploy.outputs.url }}
+
 inputs:
   VERCEL_ORG_ID:
     description: vercel organization id
