@@ -29,7 +29,8 @@ jobs:
         with:
           app-id: ${{ secrets.CREATE_APP_TOKEN_APP_ID }}
           private-key: ${{ secrets.CREATE_APP_TOKEN_PRIVATE_KEY }}
-      - name: release-please
+      - name: Release please
+        id: release-please
         uses: googleapis/release-please-action@v4
         with:
           token: ${{ steps.app-token.outputs.token }}
@@ -40,7 +41,7 @@ jobs:
 
   deploy-production:
     needs: release-please
-    if: needs.release-please.outputs.release_created == 'true'
+    if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
