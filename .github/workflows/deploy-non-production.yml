@@ -15,7 +15,7 @@ jobs:
   deploy-preview:
     name: Deploy preview
     runs-on: ubuntu-latest
-    if: ${{ github.ref_name != 'main' }}
+    if: ${{ github.ref_name != 'main' && !startsWith(github.ref_name, 'release-please') }}
     environment:
       name: url
       url: ${{ steps.deploy.outputs.url }}
