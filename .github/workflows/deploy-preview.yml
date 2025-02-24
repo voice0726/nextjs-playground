@@ -7,12 +7,16 @@ env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-changed-files:
     name: "Check changed files"
     runs-on: ubuntu-latest
     outputs:
-      skip: ${{ steps.output-to-env.outputs.skip }}
+      any_changed: ${{ steps.output-to-env.outputs.any_changed }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,16 +26,15 @@ jobs:
       - name: Output result to env
         id: output-to-env
         run: |
-          echo any_changed=${{ steps.check-changed-files.outputs.any_changed }}
-          echo changed_files=${{ steps.check-changed-files.outputs.all_changed_files }}
-          echo renovate=${{ startsWith('renovate', github.ref_name) }}
-          echo "skip=${{ steps.check-changed-files.outputs.any_changed == 'false' || startsWith('renovate', github.ref_name) }}" >> "$GITHUB_OUTPUT"
-  deploy:
+          echo any_changed=${{ steps.check-changed-files.outputs.any_changed }} >> "$GITHUB_OUTPUT"
+
+  deploy-preview:
+    name: Deploy preview
     needs: check-changed-files
     runs-on: ubuntu-latest
-    if: ${{ needs.check-changed-files.outputs.skip == 'false' && github.ref_name != 'main' && !startsWith(github.ref_name, 'release-please' ) }}
+    if: ${{ needs.check-changed-files.outputs.any_changed == 'true' && github.ref_name != 'main' }}
     environment:
-      name: preview
+      name: url
       url: ${{ steps.deploy.outputs.url }}
     steps:
       - name: Checkout
@@ -59,6 +62,6 @@ jobs:
         uses: ./.github/workflows/actions/deploy
         with:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           TARGET_ENVIRONMENT: staging
