@@ -1,4 +1,4 @@
-name: Deploy preview
+name: Deploy non-production
 
 on:
   push:
@@ -38,6 +38,27 @@ jobs:
         uses: actions/checkout@v4
       - name: Deploy preview
         id: deploy-preview
-        uses: ./.github/workflows/actions/deploy-preview
+        uses: ./.github/workflows/actions/deploy
         with:
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          TARGET_ENVIRONMENT: preview
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.url }}
+    if: ${{ github.ref_name == 'main' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy staging
+        id: deploy-staging
+        uses: ./.github/workflows/actions/deploy
+        with:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          TARGET_ENVIRONMENT: staging
