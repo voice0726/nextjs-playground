@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.5...nextjs-14-playground/v1.0.6) (2025-02-24)
+
+
+### Continuous Integration
+
+* Fix missing step id ([#126](https://github.com/voice0726/nextjs-playground/issues/126)) ([e707d93](https://github.com/voice0726/nextjs-playground/commit/e707d93dcbc3392f759d7b4d38b01ed8050700b7))
+
 ## [1.0.5](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.4...nextjs-14-playground/v1.0.5) (2025-02-24)
 
 
