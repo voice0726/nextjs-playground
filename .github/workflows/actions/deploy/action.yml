@@ -36,13 +36,18 @@ runs:
       env:
         VERCEL_ORG_ID: ${{ inputs.VERCEL_ORG_ID }}
         VERCEL_PROJECT_ID: ${{ inputs.VERCEL_PROJECT_ID }}
-        TARGET_ENVIRONMENT: ${{ inputs.TARGET_ENVIRONMENT }}
       shell: bash
     - name: Deploy Project Artifacts to Vercel
       id: deploy
       run: echo "url=$(vercel deploy ${{ inputs.TARGET_ENVIRONMENT == 'production' && '--prod' }} --prebuilt --token=${{ inputs.VERCEL_TOKEN }})" >> $GITHUB_OUTPUT
+      env:
+        VERCEL_ORG_ID: ${{ inputs.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ inputs.VERCEL_PROJECT_ID }}
       shell: bash
     - name: Assign staging domain to deployment
       if: ${{ inputs.TARGET_ENVIRONMENT == 'staging' }}
       run: vercel alias ${{ steps.deploy-staging.outputs.url }} staging-voice0726.vercel.app --scope=voice726 --token=${{ inputs.VERCEL_TOKEN }}
+      env:
+        VERCEL_ORG_ID: ${{ inputs.VERCEL_ORG_ID }}
+        VERCEL_PROJECT_ID: ${{ inputs.VERCEL_PROJECT_ID }}
       shell: bash
