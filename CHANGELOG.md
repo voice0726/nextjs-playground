@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.4...nextjs-14-playground/v1.0.5) (2025-02-24)
+
+
+### Continuous Integration
+
+* Fix missing job output ([#124](https://github.com/voice0726/nextjs-playground/issues/124)) ([2087ecb](https://github.com/voice0726/nextjs-playground/commit/2087ecb22e25fd4fa807074cff3db8cf4d1f4ade))
+
 ## [1.0.4](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.3...nextjs-14-playground/v1.0.4) (2025-02-24)
 
 
