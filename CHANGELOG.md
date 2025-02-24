@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.0.7](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.6...nextjs-14-playground/v1.0.7) (2025-02-24)
+
+
+### Reverts
+
+* Revert [#130](https://github.com/voice0726/nextjs-playground/issues/130) ([#131](https://github.com/voice0726/nextjs-playground/issues/131)) ([7086ecb](https://github.com/voice0726/nextjs-playground/commit/7086ecb4638e1cee72dd03fe2fed4a667c7e192d))
+* Revert [#132](https://github.com/voice0726/nextjs-playground/issues/132) ([#134](https://github.com/voice0726/nextjs-playground/issues/134)) ([0500759](https://github.com/voice0726/nextjs-playground/commit/050075964799a3e477f50336703ceba5c2bc6982))
+
+
+### Continuous Integration
+
+* Add environment for release please ([#135](https://github.com/voice0726/nextjs-playground/issues/135)) ([4bc8f53](https://github.com/voice0726/nextjs-playground/commit/4bc8f538b367f573f9ab1f2f999e4294d3072769))
+* Fix vercel secrets are not properly passed ([#128](https://github.com/voice0726/nextjs-playground/issues/128)) ([f536cc1](https://github.com/voice0726/nextjs-playground/commit/f536cc11a1608e5afba82c6621b1b4fa1058f2b0))
+* Remove duplicated pnpm cache step ([#133](https://github.com/voice0726/nextjs-playground/issues/133)) ([cb32f8e](https://github.com/voice0726/nextjs-playground/commit/cb32f8ebc9bdbfc678dfaa5340d8f701a275c4c0))
+* Remove unnecessary environment variable and job output ([#130](https://github.com/voice0726/nextjs-playground/issues/130)) ([a17d2c4](https://github.com/voice0726/nextjs-playground/commit/a17d2c4434a97064693c648d9cc7b10cf086e3c6))
+* Rename environments and add environment for deploy production ([#132](https://github.com/voice0726/nextjs-playground/issues/132)) ([511e11e](https://github.com/voice0726/nextjs-playground/commit/511e11e04f96823224f009a45d706224847c2837))
+
 ## [1.0.6](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.5...nextjs-14-playground/v1.0.6) (2025-02-24)
 
 
