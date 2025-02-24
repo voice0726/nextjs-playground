@@ -12,9 +12,6 @@ jobs:
     name: Deploy preview
     runs-on: ubuntu-latest
     if: ${{ github.ref_name != 'main' && !startsWith(github.ref_name, 'release-please') }}
-    environment:
-      name: url
-      url: ${{ steps.deploy.outputs.url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
