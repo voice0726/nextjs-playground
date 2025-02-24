@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.0.4](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.3...nextjs-14-playground/v1.0.4) (2025-02-24)
+
+
+### Continuous Integration
+
+* Add missing needs property ([#120](https://github.com/voice0726/nextjs-playground/issues/120)) ([58a8299](https://github.com/voice0726/nextjs-playground/commit/58a82994ea49195fc165a7205bad478e4496094f))
+* Fix deploy action not working for preview ([#122](https://github.com/voice0726/nextjs-playground/issues/122)) ([1bbb259](https://github.com/voice0726/nextjs-playground/commit/1bbb2593fb068aad9da8c82acb3eb32143dc4028))
+* Fix deploy to production not working ([#118](https://github.com/voice0726/nextjs-playground/issues/118)) ([8058c7f](https://github.com/voice0726/nextjs-playground/commit/8058c7fdfc45463663ef575fb76d32c3f0df6344))
+* Refactor and reoranize github acitons ([#121](https://github.com/voice0726/nextjs-playground/issues/121)) ([335c428](https://github.com/voice0726/nextjs-playground/commit/335c4282eff20ce7132bed9487cc187ceea05590))
+* Skip deploy preview when push to release-please branch ([#123](https://github.com/voice0726/nextjs-playground/issues/123)) ([233dd8f](https://github.com/voice0726/nextjs-playground/commit/233dd8f5747e948186c941646fbd93f5ae5bd51b))
+
 ## [1.0.3](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.2...nextjs-14-playground/v1.0.3) (2025-02-22)
 
 
