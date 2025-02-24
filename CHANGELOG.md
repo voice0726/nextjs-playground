@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.8](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.7...nextjs-14-playground/v1.0.8) (2025-02-24)
+
+
+### Continuous Integration
+
+* Remove deploy environment for preview ([#136](https://github.com/voice0726/nextjs-playground/issues/136)) ([63ab4dc](https://github.com/voice0726/nextjs-playground/commit/63ab4dca81878db7fc5e2b1887d2f09702fd3bfa))
+
 ## [1.0.7](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.6...nextjs-14-playground/v1.0.7) (2025-02-24)
 
 
