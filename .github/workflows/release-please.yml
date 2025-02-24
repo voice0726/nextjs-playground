@@ -9,6 +9,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -32,24 +36,6 @@ jobs:
           manifest-file: .release-please-manifest.json
           target-branch: main
 
-  deploy-staging:
-    needs: release-please
-    if: needs.release-please.outputs.release_created == 'false'
-    runs-on: ubuntu-latest
-    environment:
-      name: preview
-      url: ${{ steps.deploy.outputs.url }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Deploy staging
-        id: deploy-staging
-        uses: ./.github/workflows/actions/deploy-preview
-        with:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-      - name: Assign staging domain to deployment
-        run: vercel alias ${{ steps.deploy-staging.outputs.url }} staging-voice0726.vercel.app --scope=voice726 --token=${{ secrets.VERCEL_TOKEN }}
-
   deploy-production:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
@@ -59,11 +45,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Initialize environment
         uses: ./.github/workflows/actions/init
-      - name: Install Vercel CLI
-        run: pnpm install --global vercel@latest
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Build Project Artifacts
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy production
+        id: deploy-production
+        uses: ./.github/workflows/actions/deploy
+        with:
+          VERCEL_ORG_ID: ${{ env.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ env.VERCEL_PROJECT_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          TARGET_ENVIRONMENT: production

@@ -24,7 +24,8 @@ runs:
       env:
         ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
       run: |
+        echo "Changed files:"
         for file in ${ALL_CHANGED_FILES}; do
-          echo "$file was changed"
+          echo "$file"
         done
       shell: bash
