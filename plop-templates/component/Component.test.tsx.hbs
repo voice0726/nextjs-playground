@@ -1,8 +1,10 @@
 import type { ReactElement } from 'react';
 
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { test, expect, afterEach, vi, describe } from 'vitest';
+import { test, expect, afterEach, describe } from 'vitest';
+
+import { {{pascalCase name}} } from '.';
 
 afterEach(() => {
   cleanup();
@@ -15,6 +17,7 @@ const setup = (jsx: ReactElement) => ({
 
 describe('test case', () => {
   test('should render', () => {
-    const { user } = setup(<{{pascalCase name}} />);
+    const { getByText } = setup(<{{pascalCase name}} />);
+    expect(getByText('{{pascalCase name}} component')).toBeInTheDocument();
   });
 });
