@@ -31,5 +31,10 @@ export default defineConfig({
     typecheck: {
       tsconfig: resolve(__dirname, 'tsconfig.test.json'),
     },
+    coverage: {
+      enabled: true,
+      provider: 'v8',
+      include: ['src/app/**/*.{ts,tsx}'],
+    }
   },
 });
