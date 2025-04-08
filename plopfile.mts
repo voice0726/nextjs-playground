@@ -1,69 +1,65 @@
 import fs from 'node:fs';
 
 import type { NodePlopAPI } from 'plop';
+
 const appRoot = 'src/app';
 const componentDirName = '_components';
 const componentRoot = `${appRoot}/${componentDirName}`;
 
-/**
- *
- * @param dir
- * @param append
- * @returns {string[]}
- */
-function dirWalk(dir: string, append = ''): string[] {
-  let q: string[] = [];
-  for (const f of fs.readdirSync(dir)) {
-    if (f.startsWith('_') || f.startsWith('node_modules')) {
+const __dirname = import.meta.dirname;
+
+const dirWalk = (dir: string) => {
+  const paths = fs.readdirSync(dir);
+  const dirs = [];
+  for (const path of paths) {
+    if (path.startsWith('.') || path.startsWith('node_modules')) {
       continue;
     }
-    if (fs.statSync(`${dir}/${f}`).isDirectory()) {
-      const sep = append ? '/' : '';
-      q.push(`${append}${sep}${f}`);
-      q = [...q, ...dirWalk(`${dir}/${f}`, f)];
+    const stats = fs.statSync(`${dir}/${path}`);
+    if (stats.isDirectory()) {
+      dirs.push(path);
     }
   }
 
-  return q;
-}
+  return dirs;
+};
 
-module.exports = (plop: NodePlopAPI) => {
+export default function (plop: NodePlopAPI) {
   plop.setGenerator('component', {
     description: 'react component',
     prompts: [
       {
         type: 'list',
         name: 'component-type',
-        message: 'component type please',
+        message: 'component type?',
         choices: ['feats', 'common'],
       },
       {
         when: (answers) => answers['component-type'] === 'feats',
         type: 'list',
         name: 'path',
-        message: 'select directory',
-        choices: dirWalk(`${__dirname}/src/app`).map((v) => `src/app/${v}/${componentDirName}`),
+        message: 'component directory?',
+        choices: dirWalk(`${__dirname}/${appRoot}`)
+          .filter((v) => !v.endsWith(componentDirName))
+          .map((v) => `src/app/${v}/${componentDirName}`),
       },
       {
         when: (answers) => answers['component-type'] === 'common',
         type: 'input',
         name: 'path',
-        message: '{path please}',
+        default: componentRoot,
+        message: 'component directory?',
       },
       {
         type: 'input',
         name: 'name',
-        message: 'component name please',
+        message: 'component name?',
+        validate: (i) => typeof i === 'string' && i.length > 0,
       },
       {
         type: 'confirm',
         name: 'confirm',
-        message: (answers) => {
-          if (answers['component-type'] === 'feats') {
-            return `path: ${appRoot}/${answers.path}/${answers.name}?`;
-          }
-          return `path: ${componentRoot}/${answers.path}/${answers.name}?`;
-        },
+        message: (answers) => `path: '${answers.path}/${answers.name}'?`,
       },
     ],
     actions: (p) => {
@@ -95,4 +91,4 @@ module.exports = (plop: NodePlopAPI) => {
       return [];
     },
   });
-};
+}
