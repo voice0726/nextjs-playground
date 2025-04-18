@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.9](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.8...nextjs-14-playground/v1.0.9) (2025-04-18)
+
+
+### Miscellaneous Chores
+
+* **plop:** Update plopfile and template ([#138](https://github.com/voice0726/nextjs-playground/issues/138)) ([992a69c](https://github.com/voice0726/nextjs-playground/commit/992a69c957f86e885707aef61fb94b76d4b05ced))
+* **plop:** Update plopfile and template ([#142](https://github.com/voice0726/nextjs-playground/issues/142)) ([2e4dc8c](https://github.com/voice0726/nextjs-playground/commit/2e4dc8c6ae2b10f6da26c85a5a7c2a6deb7ea127))
+* **vitest:** Move coverage settings from argument to vitest.config.mts ([#141](https://github.com/voice0726/nextjs-playground/issues/141)) ([2e91539](https://github.com/voice0726/nextjs-playground/commit/2e915390da718eff5f30527703012ae1f00846cb))
+
 ## [1.0.8](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.7...nextjs-14-playground/v1.0.8) (2025-02-24)
 
 
