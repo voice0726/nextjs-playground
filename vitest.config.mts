@@ -19,6 +19,11 @@ export default defineConfig({
     }),
   ],
   test: {
+    coverage: {
+      enabled: true,
+      provider: 'v8',
+      include: ['src/**/*.{ts,tsx}'],
+    },
     environment: 'jsdom',
     globals: true,
     env: config({ path: '.env.test' }).parsed,
