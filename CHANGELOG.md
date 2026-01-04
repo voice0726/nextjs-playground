@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.9...nextjs-14-playground/v1.1.0) (2026-01-04)
+
+
+### Features
+
+* Update dependencies to latest versions ([#143](https://github.com/voice0726/nextjs-playground/issues/143)) ([789611f](https://github.com/voice0726/nextjs-playground/commit/789611fee8435d31d499b2471496c6c3d935d39d))
+
+
+### Miscellaneous Chores
+
+* Claude PR Assistant workflow ([#144](https://github.com/voice0726/nextjs-playground/issues/144)) ([10e1cd2](https://github.com/voice0726/nextjs-playground/commit/10e1cd2c2ca1f8ad3f87b4e848d0a6f4389342b3))
+
 ## [1.0.9](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.8...nextjs-14-playground/v1.0.9) (2025-04-18)
 
 
