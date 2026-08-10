@@ -35,8 +35,8 @@
     "mini-css-extract-plugin": "^2.9.2",
     "next": "^15.3.4",
     "next-auth": "5.0.0-beta.25",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "typescript-case-convert": "^1.3.5",
     "vite-tsconfig-paths": "^5.1.4",
     "zod": "^3.25.67"
