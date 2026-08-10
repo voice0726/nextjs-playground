@@ -20,7 +20,7 @@
     "plop": "cross-env NODE_OPTIONS='--import tsx' plop --plopfile=plopfile.mts"
   },
   "dependencies": {
-    "@auth/core": "^0.37.4",
+    "@auth/core": "^0.41.0",
     "@conform-to/dom": "^1.7.2",
     "@conform-to/react": "^1.7.2",
     "@conform-to/zod": "^1.7.2",
