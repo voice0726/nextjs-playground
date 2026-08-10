@@ -10,7 +10,7 @@ runs:
   using: composite
   steps:
     - name: Get changed files
-      uses: tj-actions/changed-files@v45.0.7
+      uses: tj-actions/changed-files@v47.0.6
       id: changed-files
       with:
         files_ignore: | 
