@@ -26,7 +26,7 @@
     "@conform-to/zod": "^1.7.2",
     "@date-fns/utc": "^2.1.0",
     "@headlessui/react": "^2.2.4",
-    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-table": "^9.0.0",
     "@vitest/eslint-plugin": "^1.2.7",
     "@wyw-in-js/babel-preset": "^0.5.5",
     "@wyw-in-js/vite": "^0.5.5",
