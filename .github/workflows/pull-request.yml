@@ -25,7 +25,7 @@ jobs:
       skip: ${{ steps.output-to-env.outputs.skip }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: "Check changed files"
         id: check-changed-files
         uses: ./.github/workflows/actions/get-changed-files
@@ -42,7 +42,7 @@ jobs:
     if: needs.check-changed-files.outputs.continue == 'true'
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: type check and lint
         uses: ./.github/workflows/actions/typecheck-and-lint
   test:
@@ -52,7 +52,7 @@ jobs:
     if: needs.check-changed-files.outputs.continue == 'true'
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Run test
         uses: ./.github/workflows/actions/test
   code-analysis:
@@ -62,7 +62,7 @@ jobs:
     if: needs.check-changed-files.outputs.continue == 'true'
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Run qodana code scanning
         uses: ./.github/workflows/actions/qodana
         env:
