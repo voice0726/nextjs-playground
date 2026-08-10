@@ -2,6 +2,6 @@ runs:
   using: composite
   steps:
     - name: 'Qodana Scan'
-      uses: JetBrains/qodana-action@v2024.3
+      uses: JetBrains/qodana-action@v2026.2.0
       with:
         pr-mode: true
