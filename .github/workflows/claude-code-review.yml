@@ -39,6 +39,7 @@ jobs:
           
           # Optional: Specify model (defaults to Claude Sonnet 4, uncomment for Claude Opus 4)
           # model: "claude-opus-4-20250514"
+          allowed_bots: voice0726-release-please
           
           # Direct prompt for automated review (no @claude mention needed)
           direct_prompt: |
