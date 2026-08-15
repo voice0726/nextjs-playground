@@ -2,9 +2,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  experimental: {
-    typedRoutes: true,
-  },
+  typedRoutes: true,
   // see https://github.com/mswjs/examples/pull/101/files/eb017b0976cbab722e5af5e8077261581fe328af#r1462254400
   // for more information of webpack
   webpack(config, { isServer }) {

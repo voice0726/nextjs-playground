@@ -1,3 +1,4 @@
+import type { Route } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import type { NextRequest } from 'next/server';
@@ -31,5 +32,5 @@ export async function GET(req: NextRequest) {
   const rand = crypto.randomUUID().replaceAll('-', '');
   (await cookies()).set('logout_state', rand);
 
-  return redirect(`${session.logoutUrl}&state=${rand}`);
+  return redirect(`${session.logoutUrl}&state=${rand}` as Route);
 }

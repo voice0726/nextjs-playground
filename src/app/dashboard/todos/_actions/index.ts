@@ -1,5 +1,6 @@
 'use server';
 
+import type { Route } from 'next';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -11,7 +12,7 @@ import { createData } from '~/lib/api';
 export async function createTodo(_: unknown, formData: FormData) {
   const session = await auth();
   if (!session || !session.userDetails.id) {
-    redirect(`${API_HOST}/login`);
+    redirect(`${API_HOST}/login` as Route);
   }
 
   const payload = {
@@ -31,7 +32,7 @@ export async function createTodo(_: unknown, formData: FormData) {
 export async function updateTodo(id: string, _: unknown, formData: FormData) {
   const session = await auth();
   if (!session || !session.userDetails.id) {
-    redirect(`${API_HOST}/login`);
+    redirect(`${API_HOST}/login` as Route);
   }
 
   formData.set('id', id);
@@ -52,7 +53,7 @@ export async function updateTodo(id: string, _: unknown, formData: FormData) {
 export async function deleteTodo(targetId: string, _: unknown, __: FormData) {
   const session = await auth();
   if (!session) {
-    redirect(`${API_HOST}/login`);
+    redirect(`${API_HOST}/login` as Route);
   }
   const res = await fetch(`${API_HOST}/todos/${targetId}`, {
     method: 'DELETE',

@@ -1,0 +1,10 @@
+allowBuilds:
+  '@biomejs/biome': true
+  core-js-pure: true
+  esbuild: true
+  msw: true
+  sharp: true
+  unrs-resolver: true
+
+overrides:
+  happy-dom@<15.10.2: '>=15.10.2'
