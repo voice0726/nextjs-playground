@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.1.0](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.9...nextjs-14-playground/v1.1.0) (2026-08-15)
+
+
+### Features
+
+* Eslintをv10へ、typescriptをv6.0.3へ更新 ([6ae12ed](https://github.com/voice0726/nextjs-playground/commit/6ae12ed5076e3a71c6abca5501527d71d47ecffe))
+* Update dependencies to latest versions ([#143](https://github.com/voice0726/nextjs-playground/issues/143)) ([789611f](https://github.com/voice0726/nextjs-playground/commit/789611fee8435d31d499b2471496c6c3d935d39d))
+* 型チェックにTypeScript7ネイティブコンパイラを併用する ([40126d0](https://github.com/voice0726/nextjs-playground/commit/40126d0e28b59515f661fb32d8e7dde15c7c064e))
+
+
+### Bug Fixes
+
+* CI のデプロイとレビュー失敗を修正 ([#146](https://github.com/voice0726/nextjs-playground/issues/146)) ([cab9fb2](https://github.com/voice0726/nextjs-playground/commit/cab9fb2f2bf8497fca60b4b93a2a3ecff25a9a74))
+* セキュリティ脆弱性を修正しnextとreactを更新 ([a2ea069](https://github.com/voice0726/nextjs-playground/commit/a2ea06924a40fb72c86a8bcf640566731fb3f6ff))
+
+
+### Miscellaneous Chores
+
+* Claude PR Assistant workflow ([#144](https://github.com/voice0726/nextjs-playground/issues/144)) ([10e1cd2](https://github.com/voice0726/nextjs-playground/commit/10e1cd2c2ca1f8ad3f87b4e848d0a6f4389342b3))
+* Semver範囲内の依存パッケージを更新 ([6480775](https://github.com/voice0726/nextjs-playground/commit/6480775f3f4e114fbf93eb6765113c257eff23cf))
+
 ## [1.0.9](https://github.com/voice0726/nextjs-playground/compare/nextjs-14-playground/v1.0.8...nextjs-14-playground/v1.0.9) (2025-04-18)
 
 
