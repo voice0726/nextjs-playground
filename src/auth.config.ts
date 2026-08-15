@@ -116,7 +116,7 @@ export const authConfig = {
   },
 } satisfies NextAuthConfig;
 
-function validateAccount(account: Account | null): asserts account is Account & {
+function validateAccount(account: Account | null | undefined): asserts account is Account & {
   access_token: string;
   expires_at: number;
   refresh_token: string;
