@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "prepare": "husky && panda codegen",
-    "types:check": "tsc --noEmit",
+    "types:check": "node_modules/@typescript/native/bin/tsc --noEmit",
     "lint:check": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
     "prettier:check": "prettier 'src/**/*.{js,jsx,ts,tsx}'",
@@ -100,6 +100,7 @@
     "storybook": "^8.6.18",
     "tsx": "^4.23.12",
     "typescript": "^6.0.3",
+    "@typescript/native": "npm:typescript@^7.0.2",
     "typescript-eslint": "^8.67.0",
     "vitest": "^3.2.7"
   },
